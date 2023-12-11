@@ -32,6 +32,22 @@ To install the required libraries, run the following command in your terminal:
 pip install pandas matplotlib requests selectolax httpx
 ```
 
+### Configuring the Browser
+
+To ensure the application fetches data correctly, it is necessary to configure the browser's User-Agent in the `html_fetcher.py` file. Follow these steps:
+
+1. Open your web browser and search for "my user agent".
+2. Copy the User-Agent string displayed.
+3. In the `html_fetcher.py` file, find the `headers` variable and replace the existing User-Agent value with your copied string. 
+
+   For example:
+
+   ```python
+   headers = {
+       "User-Agent": "Your User-Agent String Here"
+   }
+   ```
+
 ### Running the Application
 
 To run SCARPY, navigate to the application directory in your terminal and execute:
