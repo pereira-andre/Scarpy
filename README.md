@@ -4,31 +4,42 @@
 
 SCARPY is an application designed for collecting and analyzing automotive advertisement data from the Stand Virtual website.
 
-You can select a range of web pages to gather your data, which is stored in .csv or .json formats.
-
-This data can then be extrapolated for a comprehensive market analysis to find the best deals.
-
 ### Features
 
-- Collect data from automotive advertisements.
-- Option to select specific web page ranges for data collection.
-- Data storage in .csv and .json formats.
-- Tools for data analysis and market trend identification.
+- Collect data from a range of web pages on Stand Virtual.
+- Store the collected data in .csv or .json formats.
+- Analyze the data to identify market trends and find the best automobile deals.
 
 ### Prerequisites
 
-Before running the program, you need to install some necessary Python libraries. 
+Before running the program, ensure you have Python installed on your system. You will also need several libraries for the application to function correctly.
 
-Ensure you have Python installed on your system. The required libraries include:
+### Required Libraries
 
-- `tkinter` for the user interface.
-- `pandas` for data manipulation.
-- `matplotlib` for data visualization.
-- `requests` for making HTTP requests.
+- `tkinter` - For the graphical user interface.
+- `pandas` - For data manipulation and analysis.
+- `matplotlib` - For data visualization.
+- `requests` - For making HTTP requests.
+- `selectolax` - For HTML parsing.
+- `httpx` - For asynchronous HTTP requests.
+- `threading` - For concurrent execution.
 
 ### Installation
 
 To install the required libraries, run the following command in your terminal:
 
 ```bash
-pip install pandas matplotlib requests
+pip install pandas matplotlib requests selectolax httpx
+```
+
+### Running the Application
+
+To run SCARPY, navigate to the application directory in your terminal and execute:
+
+```bash
+python main.py
+```
+
+### License
+
+This project is licensed under the Apache 2.0 License - see the LICENSE file for details.
