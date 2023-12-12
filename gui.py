@@ -7,6 +7,7 @@ import tkinter as tk
 from tkinter import filedialog, messagebox, PhotoImage, Toplevel
 import requests
 
+"""ISTO É UM TESTE"""
 
 class MainGUI:
     """ Classe principal da interface gráfica do usuário para o aplicativo SCARPY. """
@@ -294,7 +295,7 @@ class MainGUI:
 
     def check_for_updates(self):
         current_version = "1.0.0"  # Versão atual do programa
-        version_url = "https://github.com/pereira-andre/Scarpy/tree/main/version.txt"
+        version_url = "https://raw.githubusercontent.com/pereira-andre/Scarpy/main/version.txt"
 
         try:
             response = requests.get(version_url)
