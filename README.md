@@ -58,5 +58,3 @@ python main.py
 
 This project is licensed under the Apache 2.0 License - see the LICENSE file for more details.
 
-
-This translated README maintains the structure and content of the original, ensuring clarity and coherence in English.
