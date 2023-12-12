@@ -1,5 +1,9 @@
 # Scarpy
 
+
+![Logo SCARPY](https://github.com/pereira-andre/Scarpy/blob/main/logo.png)
+
+
 ## SCARPY - Automotive Data Collection & Analysis App
 
 SCARPY is an application designed for collecting and analyzing automotive advertisement data from the Stand Virtual website.
