@@ -378,7 +378,7 @@ class MainGUI:
         messagebox.showinfo("Configurações", "Configurações salvas com sucesso!")
 
     def check_for_updates(self):
-        current_version = "1.0.0"  # Versão atual do programa
+        current_version = "2.0.0"  # Versão atual do programa
         version_url = "https://raw.githubusercontent.com/pereira-andre/Scarpy/main/version.txt"
 
         try:
