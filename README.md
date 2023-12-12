@@ -6,13 +6,13 @@ SCARPY is an application designed for collecting and analyzing automotive advert
 
 ### Features
 
-- Collect data from a range of web pages on Stand Virtual.
-- Store the collected data in .csv or .json formats.
-- Analyze the data to identify market trends and find the best automobile deals.
+- Collects data from a variety of Stand Virtual web pages.
+- Stores data in .csv or .json formats.
+- Analyzes the data to identify market trends and find the best automobile deals.
 
 ### Prerequisites
 
-Before running the program, ensure you have Python installed on your system. You will also need several libraries for the application to function correctly.
+Before running the program, ensure you have Python installed on your operating system. Some libraries are required for the app to function correctly.
 
 ### Required Libraries
 
@@ -26,31 +26,25 @@ Before running the program, ensure you have Python installed on your system. You
 
 ### Installation
 
-To install the required libraries, run the following command in your terminal:
+To install the necessary libraries, execute the following command in your terminal:
 
 ```bash
 pip install pandas matplotlib requests selectolax httpx
 ```
 
-### Configuring the Browser
+### Configuration
 
-To ensure the application fetches data correctly, it is necessary to configure the browser's User-Agent in the `html_fetcher.py` file. Follow these steps:
+The app features a configuration window that allows you to easily adjust the following options:
 
-1. Open your web browser and search for "my user agent".
-2. Copy the User-Agent string displayed.
-3. In the `html_fetcher.py` file, find the `headers` variable and replace the existing User-Agent value with your copied string. 
+- **Browser User-Agent**: To properly configure the User-Agent used in HTTP requests.
+- **CSS Selectors**: To adapt the app to changes on the target website.
+- **Base URL**: To define the base URL of the site from where the data is collected.
 
-   For example:
+To access these configurations, run the app and click on the "Settings" button in the main menu.
 
-   ```python
-   headers = {
-       "User-Agent": "Your User-Agent String Here"
-   }
-   ```
+### Execution
 
-### Running the Application
-
-To run SCARPY, navigate to the application directory in your terminal and execute:
+To run SCARPY, navigate to the app folder in your terminal and execute the command:
 
 ```bash
 python main.py
@@ -58,4 +52,7 @@ python main.py
 
 ### License
 
-This project is licensed under the Apache 2.0 License - see the LICENSE file for details.
+This project is licensed under the Apache 2.0 License - see the LICENSE file for more details.
+
+
+This translated README maintains the structure and content of the original, ensuring clarity and coherence in English.
