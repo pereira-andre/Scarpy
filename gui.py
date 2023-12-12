@@ -6,8 +6,10 @@ import threading
 import tkinter as tk
 from tkinter import filedialog, messagebox, PhotoImage, Toplevel
 import requests
+import os
+import webbrowser
 
-"""ISTO É UM TESTE"""
+
 
 class MainGUI:
     """ Classe principal da interface gráfica do usuário para o aplicativo SCARPY. """
@@ -29,7 +31,7 @@ class MainGUI:
         """ Adiciona uma imagem no topo da janela. """
         self.image = PhotoImage(file='logo.png')  # Caminho para a imagem do logo
         self.image_label = tk.Label(self.root, image=self.image, bg='#07171c')
-        self.image_label.pack(pady=10)
+        self.image_label.pack(pady=1)
 
     def add_buttons_to_menu(self):
         """ Adiciona botões ao menu principal. """
@@ -42,10 +44,9 @@ class MainGUI:
         buttons_info = [
             ("Recolher dados", self.open_scraping_config),
             ("Analisar Dados", self.analyze_data),
-            ("Melhores Resultados", self.placeholder_function),
-            ("Simular crédito", self.placeholder_function),
-            ("Instruções", self.placeholder_function),
+            ("Instruções", self.open_instructions),
             ("Créditos", self.credits),
+            ("Configurações", self.open_config_window),
             ("Atualizações", self.check_for_updates),
             ("Sair", self.quit)
         ]
@@ -289,9 +290,92 @@ class MainGUI:
         max_min_text_widget.insert(tk.END, max_min_str)
         max_min_text_widget.config(state='disabled')
 
-    def placeholder_function(self):
-        """ Função de placeholder para funcionalidades futuras. """
-        pass
+    def open_instructions(self):
+        """ Abre o arquivo instructions.txt localmente no navegador padrão. """
+        readme_path = os.path.join(os.path.dirname(__file__), 'instructions.txt')
+        if os.path.exists(readme_path):
+            webbrowser.open('file://' + os.path.realpath(readme_path))
+        else:
+            messagebox.showerror("Erro", "O arquivo instructions.txt não foi encontrado.")
+
+    def open_config_window(self):
+        """Abre a janela de configurações."""
+        self.config_window = Toplevel(self.root)
+        self.config_window.title("Configurações")
+        self.config_window.configure(bg='#07171c')
+        self.config_window.geometry("430x400")
+
+        self.create_config_elements()
+
+    def create_config_elements(self):
+        """Cria elementos na janela de configuração para atualizar os seletores CSS e User-Agent."""
+        self.config_frame = tk.Frame(self.config_window, bg='#07171c')
+        self.config_frame.pack(pady=10)
+
+        # Carrega as configurações atuais ou define os valores padrão
+        config = self.load_current_config()
+
+        # Campo para User-Agent
+        self.user_agent_label = tk.Label(self.config_frame, text="User-Agent:", bg='#07171c', fg='white')
+        self.user_agent_label.pack(pady=5)
+        self.user_agent_entry = tk.Entry(self.config_frame)
+        self.user_agent_entry.insert(0, config.get("User-Agent", "Mozilla/5.0"))
+        self.user_agent_entry.pack()
+
+        # Campo para Cars Selector
+        self.cars_selector_label = tk.Label(self.config_frame, text="Cars Selector:", bg='#07171c', fg='white')
+        self.cars_selector_label.pack(pady=5)
+        self.cars_selector_entry = tk.Entry(self.config_frame)
+        self.cars_selector_entry.insert(0, config.get("CarsSelector", "h1.ev7e6t89.ooa-1xvnx1e.er34gjf0"))
+        self.cars_selector_entry.pack()
+
+        # Campo para Others Selector
+        self.others_selector_label = tk.Label(self.config_frame, text="Others Selector:", bg='#07171c', fg='white')
+        self.others_selector_label.pack(pady=5)
+        self.others_selector_entry = tk.Entry(self.config_frame)
+        self.others_selector_entry.insert(0, config.get("OthersSelector", "p.e1aiyq9b1.ooa-1i4y99d.er34gjf0"))
+        self.others_selector_entry.pack()
+
+        # Campo para Brand Selector
+        self.brand_selector_label = tk.Label(self.config_frame, text="Brand Selector:", bg='#07171c', fg='white')
+        self.brand_selector_label.pack(pady=5)
+        self.brand_selector_entry = tk.Entry(self.config_frame)
+        self.brand_selector_entry.insert(0, config.get("BrandSelector", "h3.offer-title.big-text.e1aiyq9b2.ooa-ebtemw.er34gjf0"))
+        self.brand_selector_entry.pack()
+
+        # Campo para URL Base
+        self.base_url_label = tk.Label(self.config_frame, text="URL Base:", bg='#07171c', fg='white')
+        self.base_url_label.pack(pady=5)
+        self.base_url_entry = tk.Entry(self.config_frame)
+        self.base_url_entry.insert(0, config.get("BaseURL", "https://www.standvirtual.com/carros?page="))
+        self.base_url_entry.pack()
+
+        # Botão para salvar as configurações
+        self.save_config_button = tk.Button(self.config_frame, text="Salvar Configurações", command=self.save_config,
+                                            bg='white', fg='black')
+        self.save_config_button.pack(pady=10)
+
+    def load_current_config(self):
+        """Carrega as configurações atuais do arquivo config.txt."""
+        config = {}
+        try:
+            with open("config.txt", "r") as config_file:
+                for line in config_file:
+                    key, value = line.split(":", 1)
+                    config[key.strip()] = value.strip()
+        except FileNotFoundError:
+            pass  # O arquivo config.txt não existe, usar valores padrão
+        return config
+
+    def save_config(self):
+        """Salva as configurações alteradas no arquivo config.txt."""
+        with open("config.txt", "w") as config_file:
+            config_file.write(f"User-Agent:{self.user_agent_entry.get()}\n")
+            config_file.write(f"CarsSelector:{self.cars_selector_entry.get()}\n")
+            config_file.write(f"OthersSelector:{self.others_selector_entry.get()}\n")
+            config_file.write(f"BrandSelector:{self.brand_selector_entry.get()}\n")
+            config_file.write(f"BaseURL:{self.base_url_entry.get()}\n")
+        messagebox.showinfo("Configurações", "Configurações salvas com sucesso!")
 
     def check_for_updates(self):
         current_version = "1.0.0"  # Versão atual do programa
@@ -320,6 +404,7 @@ class MainGUI:
             "Número de aluno: 2202880.\n\n"
             "Todos os direitos reservados. Este software foi criado para fins educacionais e não pode ser "
             "reproduzido, distribuído ou utilizado para outros fins sem o consentimento explícito do autor."
+            "\n\nhttps://github.com/pereira-andre/Scarpy"
         )
         messagebox.showinfo("Créditos", credits_text)
 

@@ -1,0 +1,5 @@
+User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+CarsSelector:h1.ev7e6t89.ooa-1xvnx1e.er34gjf0
+OthersSelector:p.e1aiyq9b1.ooa-1i4y99d.er34gjf0
+BrandSelector:h3.offer-title.big-text.e1aiyq9b2.ooa-ebtemw.er34gjf0
+BaseURL:https://www.standvirtual.com/carros?page=

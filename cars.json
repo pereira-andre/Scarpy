@@ -71298,5 +71298,355 @@
         "mileage": "140000",
         "power": "250",
         "url": "https://www.standvirtual.com/carros/anuncio/renault-mgane-coupe-2-0-t-16v-rs-ID8Pw8XC.html"
+    },
+    {
+        "brand": "Ford Ranger 2.0 EcoBlue CD Wildtrak 4WD Aut.",
+        "price": "59900.0",
+        "fuel": "Diesel",
+        "month": "Março",
+        "year": "2023",
+        "mileage": "830",
+        "power": "205",
+        "url": "https://www.standvirtual.com/carros/anuncio/ford-ranger-2-0-ecoblue-cd-wildtrak-4wd-aut-ID8PxklN.html"
+    },
+    {
+        "brand": "Volvo V60 2.0 D3 Momentum Core",
+        "price": "29250.0",
+        "fuel": "Diesel",
+        "month": "Setembro",
+        "year": "2020",
+        "mileage": "63000",
+        "power": "150",
+        "url": "https://www.standvirtual.com/carros/anuncio/volvo-v60-2-0-d3-momentum-core-ID8PzeEs.html"
+    },
+    {
+        "brand": "BMW 116 d Advantage Auto",
+        "price": "19500.0",
+        "fuel": "Diesel",
+        "month": "Março",
+        "year": "2019",
+        "mileage": "120000",
+        "power": "116",
+        "url": "https://www.standvirtual.com/carros/anuncio/bmw-116-d-advantage-auto-ID8PA3R4.html"
+    },
+    {
+        "brand": "BMW 420 Gran Coupé",
+        "price": "22500.0",
+        "fuel": "Diesel",
+        "month": "Agosto",
+        "year": "2014",
+        "mileage": "260785",
+        "power": "184",
+        "url": "https://www.standvirtual.com/carros/anuncio/bmw-420-gran-coup-ID8PxSBc.html"
+    },
+    {
+        "brand": "BMW 216 Gran Tourer d 7L Line Sport Auto",
+        "price": "29900.0",
+        "fuel": "Diesel",
+        "month": "Fevereiro",
+        "year": "2020",
+        "mileage": "118527",
+        "power": "116",
+        "url": "https://www.standvirtual.com/carros/anuncio/bmw-216-gran-tourer-d-7l-line-sport-auto-ID8PA3QL.html"
+    },
+    {
+        "brand": "Mercedes-Benz A 180 d AMG Line Aut.",
+        "price": "34600.0",
+        "fuel": "Diesel",
+        "month": "Maio",
+        "year": "2020",
+        "mileage": "25591",
+        "power": "116",
+        "url": "https://www.standvirtual.com/carros/anuncio/mercedes-benz-a-180-d-amg-line-aut-ID8PzJO7.html"
+    },
+    {
+        "brand": "Citroën C1 1.0 VTi Shine",
+        "price": "12950.0",
+        "fuel": "Gasolina",
+        "month": "Dezembro",
+        "year": "2018",
+        "mileage": "61000",
+        "power": "72",
+        "url": "https://www.standvirtual.com/carros/anuncio/citron-c1-1-0-vti-shine-ID8Puf7C.html"
+    },
+    {
+        "brand": "Audi A5 2.0 TDI quattro S-line",
+        "price": "15950.0",
+        "fuel": "Diesel",
+        "month": "Agosto",
+        "year": "2009",
+        "mileage": "287000",
+        "power": "170",
+        "url": "https://www.standvirtual.com/carros/anuncio/audi-a5-2-0-tdi-quattro-s-line-ID8PwjPc.html"
+    },
+    {
+        "brand": "Citroën DS3",
+        "price": "10900.0",
+        "fuel": "Diesel",
+        "month": "Janeiro",
+        "year": "2012",
+        "mileage": "127500",
+        "power": "112",
+        "url": "https://www.standvirtual.com/carros/anuncio/citron-ds3-ID8PqfSh.html"
+    },
+    {
+        "brand": "UMM Alter Turbo II 2.5 Intercooler",
+        "price": "18750.0",
+        "fuel": "Diesel",
+        "month": "Maio",
+        "year": "1993",
+        "mileage": "125000",
+        "power": "110",
+        "url": "https://www.standvirtual.com/carros/anuncio/umm-alter-turbo-ii-2-5-intercooler-ID8PvxKe.html"
+    },
+    {
+        "brand": "Mercedes-Benz GLA 180 CDi Urban",
+        "price": "25000.0",
+        "fuel": "Diesel",
+        "month": "Fevereiro",
+        "year": "2017",
+        "mileage": "133000",
+        "power": "109",
+        "url": "https://www.standvirtual.com/carros/anuncio/mercedes-benz-gla-180-cdi-urban-ID8PzSj4.html"
+    },
+    {
+        "brand": "Citroën Grand C4 Spacetourer BlueHDi 120 Stop&Start EAT6 SHINE",
+        "price": "18600.0",
+        "fuel": "Diesel",
+        "month": "Junho",
+        "year": "2018",
+        "mileage": "118000",
+        "power": "120",
+        "url": "https://www.standvirtual.com/carros/anuncio/citron-grand-c4-spacetourer-bluehdi-120-stop-start-eat6-shine-ID8PtZUj.html"
+    },
+    {
+        "brand": "MINI Countryman Cooper SD",
+        "price": "15950.0",
+        "fuel": "Diesel",
+        "month": "Setembro",
+        "year": "2012",
+        "mileage": "205000",
+        "power": "143",
+        "url": "https://www.standvirtual.com/carros/anuncio/mini-countryman-cooper-sd-ID8Pq1mA.html"
+    },
+    {
+        "brand": "Peugeot 3008 1.5 BlueHDi GT Line EAT8",
+        "price": "23900.0",
+        "fuel": "Diesel",
+        "month": "Junho",
+        "year": "2018",
+        "mileage": "135800",
+        "power": "130",
+        "url": "https://www.standvirtual.com/carros/anuncio/peugeot-3008-1-5-bluehdi-gt-line-eat8-ID8PlItl.html"
+    },
+    {
+        "brand": "Nissan Qashqai 1.5 dCi Tekna Premium Pele",
+        "price": "16900.0",
+        "fuel": "Diesel",
+        "month": "Setembro",
+        "year": "2016",
+        "mileage": "137550",
+        "power": "110",
+        "url": "https://www.standvirtual.com/carros/anuncio/nissan-qashqai-1-5-dci-tekna-premium-pele-ID8OXZ8p.html"
+    },
+    {
+        "brand": "Renault Twingo SCe 70 S&S Intens",
+        "price": "13450.0",
+        "fuel": "Gasolina",
+        "month": "Janeiro",
+        "year": "2021",
+        "mileage": "13441",
+        "power": "70",
+        "url": "https://www.standvirtual.com/carros/anuncio/renault-twingo-sce-70-s-s-intens-ID8PvxJn.html"
+    },
+    {
+        "brand": "Peugeot 3008 1.6 BlueHDi GT Line Grip Control EAT6",
+        "price": "25900.0",
+        "fuel": "Diesel",
+        "month": "Março",
+        "year": "2018",
+        "mileage": "137800",
+        "power": "120",
+        "url": "https://www.standvirtual.com/carros/anuncio/peugeot-3008-1-6-bluehdi-gt-line-grip-control-eat6-ID8Pnp8Q.html"
+    },
+    {
+        "brand": "VW Scirocco 2.0 TDI (Blue Motion Technologie) Sound",
+        "price": "13900.0",
+        "fuel": "Diesel",
+        "month": "Janeiro",
+        "year": "2011",
+        "mileage": "168000",
+        "power": "150",
+        "url": "https://www.standvirtual.com/carros/anuncio/vw-scirocco-2-0-tdi-blue-motion-technologie-sound-ID8Pwfl7.html"
+    },
+    {
+        "brand": "Peugeot 308 1.6 BlueHDi Style J17",
+        "price": "13900.0",
+        "fuel": "Diesel",
+        "month": "Junho",
+        "year": "2017",
+        "mileage": "141500",
+        "power": "100",
+        "url": "https://www.standvirtual.com/carros/anuncio/peugeot-308-1-6-bluehdi-style-j17-ID8Pwfl9.html"
+    },
+    {
+        "brand": "Renault Captur 1.5 dCi Helly Hansen",
+        "price": "13500.0",
+        "fuel": "Diesel",
+        "month": "Agosto",
+        "year": "2016",
+        "mileage": "128500",
+        "power": "110",
+        "url": "https://www.standvirtual.com/carros/anuncio/renault-captur-1-5-dci-helly-hansen-ID8Pwf5s.html"
+    },
+    {
+        "brand": "BMW X1 16 d sDrive Advantage",
+        "price": "21950.0",
+        "fuel": "Diesel",
+        "month": "Agosto",
+        "year": "2017",
+        "mileage": "90720",
+        "power": "116",
+        "url": "https://www.standvirtual.com/carros/anuncio/bmw-x1-16-d-sdrive-advantage-ID8PvPUz.html"
+    },
+    {
+        "brand": "Citroën C2 1.1 VTR",
+        "price": "6400.0",
+        "fuel": "Gasolina",
+        "month": "Setembro",
+        "year": "2009",
+        "mileage": "65000",
+        "power": "61",
+        "url": "https://www.standvirtual.com/carros/anuncio/citron-c2-1-1-vtr-ID8PzK2f.html"
+    },
+    {
+        "brand": "Mazda CX-5 2.0 G Newground",
+        "price": "39890.0",
+        "fuel": "Gasolina",
+        "month": "Junho",
+        "year": "2023",
+        "mileage": "2100",
+        "power": "165",
+        "url": "https://www.standvirtual.com/carros/anuncio/mazda-cx-5-2-0-g-newground-ID8PwswE.html"
+    },
+    {
+        "brand": "Mercedes-Benz CLA 200 Shooting Brake AMG Line",
+        "price": "37400.0",
+        "fuel": "Gasolina",
+        "month": "Outubro",
+        "year": "2021",
+        "mileage": "17300",
+        "power": "163",
+        "url": "https://www.standvirtual.com/carros/anuncio/mercedes-benz-cla-200-shooting-brake-amg-line-ID8PzVmr.html"
+    },
+    {
+        "brand": "VW Golf",
+        "price": "17870.0",
+        "fuel": "Diesel",
+        "month": "Julho",
+        "year": "2017",
+        "mileage": "143412",
+        "power": "115",
+        "url": "https://www.standvirtual.com/carros/anuncio/vw-golf-ID8PqFzn.html"
+    },
+    {
+        "brand": "Peugeot 2008 1.5 BlueHDi Active Pack",
+        "price": "24950.0",
+        "fuel": "Diesel",
+        "month": "Julho",
+        "year": "2022",
+        "mileage": "25100",
+        "power": "110",
+        "url": "https://www.standvirtual.com/carros/anuncio/peugeot-2008-1-5-bluehdi-active-pack-ID8Pz4B8.html"
+    },
+    {
+        "brand": "Renault Clio 0.9 TCe Limited",
+        "price": "15990.0",
+        "fuel": "Gasolina",
+        "month": "Agosto",
+        "year": "2020",
+        "mileage": "28000",
+        "power": "90",
+        "url": "https://www.standvirtual.com/carros/anuncio/renault-clio-0-9-tce-limited-ID8PlrZV.html"
+    },
+    {
+        "brand": "Tesla Model S 75D AWD",
+        "price": "43500.0",
+        "fuel": "Eléctrico",
+        "month": "Junho",
+        "year": "2018",
+        "mileage": "79100",
+        "power": "332",
+        "url": "https://www.standvirtual.com/carros/anuncio/tesla-model-s-75d-awd-ID8Pz4zU.html"
+    },
+    {
+        "brand": "Kia Rio 1.1 CRDi TX AC+VE",
+        "price": "8490.0",
+        "fuel": "Diesel",
+        "month": "Fevereiro",
+        "year": "2013",
+        "mileage": "159000",
+        "power": "75",
+        "url": "https://www.standvirtual.com/carros/anuncio/kia-rio-1-1-crdi-tx-ac-ve-ID8PxWNU.html"
+    },
+    {
+        "brand": "SEAT Ateca 2.0 TDI Xcellence 4Drive DSG",
+        "price": "23900.0",
+        "fuel": "Diesel",
+        "month": "Janeiro",
+        "year": "2017",
+        "mileage": "165000",
+        "power": "190",
+        "url": "https://www.standvirtual.com/carros/anuncio/seat-ateca-2-0-tdi-xcellence-4drive-dsg-ID8Ps0IB.html"
+    },
+    {
+        "brand": "Mercedes-Benz E 220 d AMG",
+        "price": "32900.0",
+        "fuel": "Diesel",
+        "month": "Junho",
+        "year": "2017",
+        "mileage": "184900",
+        "power": "194",
+        "url": "https://www.standvirtual.com/carros/anuncio/mercedes-benz-e-220-d-amg-ID8PxZzH.html"
+    },
+    {
+        "brand": "Peugeot 308 1.6 BlueHDi GT Line EAT6",
+        "price": "17900.0",
+        "fuel": "Diesel",
+        "month": "Outubro",
+        "year": "2017",
+        "mileage": "138000",
+        "power": "120",
+        "url": "https://www.standvirtual.com/carros/anuncio/peugeot-308-1-6-bluehdi-gt-line-eat6-ID8PzYTy.html"
+    },
+    {
+        "brand": "Renault Captur 1.0 TCe Intens",
+        "price": "22990.0",
+        "fuel": "Gasolina",
+        "month": "Junho",
+        "year": "2021",
+        "mileage": "21571",
+        "power": "90",
+        "url": "https://www.standvirtual.com/carros/anuncio/renault-captur-1-0-tce-intens-ID8PlTFe.html"
+    },
+    {
+        "brand": "Peugeot 308 PureTech 130 EAT6 Stop & Start Active",
+        "price": "14990.0",
+        "fuel": "Gasolina",
+        "month": "Março",
+        "year": "2017",
+        "mileage": "54000",
+        "power": "130",
+        "url": "https://www.standvirtual.com/carros/anuncio/peugeot-308-puretech-130-eat6-stop-start-active-ID8PycBa.html"
+    },
+    {
+        "brand": "BMW 320 d Auto Pack M",
+        "price": "12900.0",
+        "fuel": "Diesel",
+        "month": "Junho",
+        "year": "2009",
+        "mileage": "312000",
+        "power": "184",
+        "url": "https://www.standvirtual.com/carros/anuncio/bmw-320-d-auto-pack-m-ID8Pz6Vt.html"
     }
 ]

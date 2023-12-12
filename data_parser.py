@@ -2,7 +2,6 @@
 
 from urllib.parse import urljoin
 
-
 class DataParser:
     """
     Classe DataParser responsável por analisar HTML e extrair informações específicas.
@@ -11,20 +10,44 @@ class DataParser:
     extraindo informações relevantes como detalhes do automóvel.
     """
 
+    def __init__(self):
+        # Defina os seletores padrão antes de tentar carregar do arquivo de configuração
+        self.cars_selector = "h1.ev7e6t89.ooa-1xvnx1e.er34gjf0"
+        self.others_selector = "p.e1aiyq9b1.ooa-1i4y99d.er34gjf0"
+        self.brand_selector = "h3.offer-title.big-text.e1aiyq9b2.ooa-ebtemw.er34gjf0"
+
+        # Tente carregar os seletores personalizados do arquivo de configuração
+        self.load_selectors()
+
+    def load_selectors(self):
+        """
+        Carrega os seletores CSS a partir de um arquivo de configuração.
+        """
+        try:
+            with open("config.txt", "r") as config_file:
+                for line in config_file:
+                    if line.startswith("CarsSelector:"):
+                        self.cars_selector = line.split(":", 1)[1].strip()
+                    elif line.startswith("OthersSelector:"):
+                        self.others_selector = line.split(":", 1)[1].strip()
+                    elif line.startswith("BrandSelector:"):
+                        self.brand_selector = line.split(":", 1)[1].strip()
+        except FileNotFoundError:
+            print("Arquivo de configuração não encontrado. Usando seletores padrão.")
+
+    def set_default_selectors(self):
+        """
+        Define os seletores padrão para o caso de o arquivo de configuração não ser encontrado.
+        """
+        self.cars_selector = "h1.ev7e6t89.ooa-1xvnx1e.er34gjf0"
+        self.others_selector = "p.e1aiyq9b1.ooa-1i4y99d.er34gjf0"
+        self.brand_selector = "h3.offer-title.big-text.e1aiyq9b2.ooa-ebtemw.er34gjf0"
+
     def parse_search_page(self, html):
         """
         Analisa a página de busca e extrai as URLs dos itens (automóveis).
-
-        Args:
-            html (HTMLParser): O objeto HTMLParser da página de busca.
-
-        Yields:
-            str: URLs dos automóveis encontrados na página de busca.
         """
-        # Seleciona elementos HTML que correspondem a uma lista de automóveis na página de busca.
-        cars = html.css("h1.ev7e6t89.ooa-1xvnx1e.er34gjf0")
-
-        # Para cada automóvel encontrado, gera (yield) a URL completa do anúncio.
+        cars = html.css(self.cars_selector)
         for car in cars:
             yield urljoin(
                 "https://www.standvirtual.com/carros/anuncio",
@@ -41,21 +64,13 @@ class DataParser:
         Returns:
             dict: Um dicionário contendo informações extraídas sobre o automóvel.
         """
-        # Extrai informações adicionais da página de um automóvel específico.
-        others = self.extract_text(html, "p.e1aiyq9b1.ooa-1i4y99d.er34gjf0")
-
-        # Separa e processa as informações como combustível, mês, ano, quilometragem e potência.
+        others = self.extract_text(html, self.others_selector)
         fuel, month, year, mileage, power = self.parse_others(others)
-        price_str = self.extract_text(
-            html, "h3.offer-price__number.esicnpr5.ooa-17vk29r.er34gjf0"
-        )
+        price_str = self.extract_text(html, "h3.offer-price__number.esicnpr5.ooa-17vk29r.er34gjf0")
         price = self.parse_price(price_str)
 
-        # Retorna um dicionário com todas as informações extraídas.
         return {
-            "brand": self.extract_text(
-                html, "h3.offer-title.big-text.e1aiyq9b2.ooa-ebtemw.er34gjf0"
-            ),
+            "brand": self.extract_text(html, self.brand_selector),
             "price": price,
             "fuel": fuel,
             "month": month,

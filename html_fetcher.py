@@ -1,5 +1,3 @@
-#html_fetcher.py
-
 import httpx
 from selectolax.parser import HTMLParser
 
@@ -8,7 +6,8 @@ class HTMLFetcher:
     Classe responsável por procurar o HTML de páginas web.
     """
 
-    def get_html(self, url):
+    @staticmethod
+    def get_html(url):
         """
         Obtém o HTML de uma página web a partir da URL fornecida.
 
@@ -18,10 +17,21 @@ class HTMLFetcher:
         Returns:
             HTMLParser: Objeto HTMLParser que contém o HTML da página, ou False se a requisição falhar.
         """
-        headers = {
-            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-        }
+        user_agent = "Mozilla/5.0"  # Valor padrão
 
+        # Tente ler o User-Agent do arquivo de configurações
+        try:
+            with open("config.txt", "r") as config_file:
+                for line in config_file:
+                    if line.startswith("User-Agent:"):
+                        user_agent = line.split(":", 1)[1].strip()
+                        break
+        except FileNotFoundError:
+            print("Arquivo config.txt não encontrado. Usando User-Agent padrão.")
+
+        headers = {"User-Agent": user_agent}
+
+        # Tente fazer a requisição HTTP
         try:
             response = httpx.get(url, headers=headers, follow_redirects=True)
             response.raise_for_status()

@@ -1,0 +1,57 @@
+# Scarpy
+
+## SCARPY - Automotive Data Collection & Analysis App
+
+SCARPY é uma aplicação projetada para recolher e analisar dados de anúncios de automóveis do site Stand Virtual.
+
+### Funcionalidades
+
+- Recolha de dados de uma variedade de páginas web do Stand Virtual.
+- Armazena os dados em formatos .csv ou .json.
+- Analisa os dados para identificar tendências de mercado e encontrar as melhores ofertas de automóveis.
+
+### Pré-requisitos
+
+Antes de executar o programa, certifique-se de ter o Python instalado no seu sistema operativo. É necessário instalar algumas bibliotecas para o funcionamento correto da app.
+
+### Bibliotecas Necessárias
+
+- `tkinter` - Para a interface gráfica do usuário.
+- `pandas` - Para manipulação e análise de dados.
+- `matplotlib` - Para visualização de dados.
+- `requests` - Para realizar solicitações HTTP.
+- `selectolax` - Para análise de HTML.
+- `httpx` - Para solicitações HTTP assíncronas.
+- `threading` - Para execução concorrente.
+
+### Instalação
+
+Para instalar as bibliotecas necessárias, execute o seguinte comando no seu terminal:
+
+```bash
+pip install pandas matplotlib requests selectolax httpx
+```
+
+### Configuração
+
+A app possui uma janela de configurações que permite ajustar facilmente as seguintes opções:
+
+- **User-Agent do Navegador**: Para configurar corretamente o User-Agent utilizado nas solicitações HTTP.
+- **Seletores CSS**: Para adaptar a app a mudanças no site alvo.
+- **URL Base**: Para definir a URL base do site de onde os dados são recolhidos.
+
+Para aceder a estas configurações, execute a app e clique no botão "Configurações" no menu principal.
+
+### Execução
+
+Para executar o SCARPY, navegue até à pasta da app no seu terminal e execute o comando:
+
+```bash
+python main.py
+```
+
+Na recolha de dados por favor especifique o tempo das pausas e o intervalo de páginas que deseja recolher, depois pressione recolher.
+
+### Licença
+
+Este projeto está licenciado sob a Licença Apache 2.0 - veja o arquivo LICENSE para mais detalhes.

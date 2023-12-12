@@ -20,6 +20,19 @@ class ScraperController:
         self.data_parser = DataParser()
         self.data_exporter = DataExporter()
         self.interrupted = False
+        self.baseurl = self.load_base_url()
+
+    def load_base_url(self):
+        """ Carrega a URL base do arquivo de configuração. """
+        default_url = "https://www.standvirtual.com/carros?page="
+        try:
+            with open("config.txt", "r") as config_file:
+                for line in config_file:
+                    if line.startswith("BaseURL:"):
+                        return line.split(":", 1)[1].strip()
+        except FileNotFoundError:
+            print("Arquivo config.txt não encontrado. Usando URL base padrão.")
+        return default_url
 
     def random_sleep(self, min_duration, max_duration):
         """
@@ -32,16 +45,13 @@ class ScraperController:
         """
         Executa o processo de scraping, recolhendo dados de automóveis de várias páginas.
         """
-        baseurl = "https://www.standvirtual.com/carros?page="
-        self.status_message = ""
-
         try:
             for n in range(start_page, end_page + 1):
                 if self.interrupted:
                     break
                 print(f"Recolhendo página nº: {n}")
 
-                page_url = baseurl + str(n)
+                page_url = self.baseurl + str(n)
                 html = self.html_fetcher.get_html(page_url)
                 if not html:
                     break
