@@ -651,20 +651,24 @@ class MainGUI:
         messagebox.showinfo("Configurações", "Configurações salvas com sucesso!")
 
     def check_for_updates(self):
-        current_version = "3.0.0"  # Versão atual do programa
-        version_url = (
-            "https://raw.githubusercontent.com/pereira-andre/Scarpy/main/version.txt"
-        )
+        current_version = "4.0.0"  # Versão atual do programa
+        version_url = "https://raw.githubusercontent.com/pereira-andre/Scarpy/main/version.txt"
 
         try:
             response = requests.get(version_url)
             latest_version = response.text.strip()
 
-            if latest_version != current_version:
+            # Comparação de versões
+            if latest_version < current_version:
+                messagebox.showinfo(
+                    "Programa Atualizado",
+                    "A versão atual do programa é mais recente do que a disponível no site."
+                )
+            elif latest_version > current_version:
                 messagebox.showinfo(
                     "Atualização Disponível",
                     f"Uma nova versão ({latest_version}) está disponível.\n"
-                    "Por favor, visite o repositório do GitHub para atualizar.",
+                    "Por favor, visite o repositório do GitHub para atualizar."
                 )
             else:
                 messagebox.showinfo(
