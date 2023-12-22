@@ -10,17 +10,35 @@ import os
 import webbrowser
 
 
-
 class MainGUI:
     """ Classe principal da interface gráfica do usuário para o aplicativo SCARPY. """
 
     def __init__(self, root):
         """ Inicializa a janela principal. """
+        self.csv_file = "cars.csv"
         self.root = root
-        self.root.title("SCARPY - Automotive Data Collection & Analysis App")
-        self.root.configure(bg='#07171c')
-        self.initialize_gui()
         self.scraper = None
+
+        # Inicialização dos atributos para armazenar as entradas do usuário
+        self.detailed_report_var = tk.BooleanVar(value=False)
+        self.brand_var = tk.StringVar(value="")
+        self.fuel_var = tk.StringVar(value="")
+        self.month_var = tk.StringVar(value="")
+        self.min_year_var = tk.StringVar(value="")
+        self.max_year_var = tk.StringVar(value="")
+        self.year_var = tk.StringVar(value="")
+        self.min_price_var = tk.StringVar(value="")
+        self.max_price_var = tk.StringVar(value="")
+        self.min_mileage_var = tk.StringVar(value="")
+        self.max_mileage_var = tk.StringVar(value="")
+        self.min_power_var = tk.StringVar(value="")
+        self.max_power_var = tk.StringVar(value="")
+        self.detailed_report_var = tk.BooleanVar(value=False)
+
+        # Configuração inicial da janela principal
+        self.root.title("SCARPY - Automotive Data Collection & Analysis App")
+        self.root.configure(bg="#07171c")
+        self.initialize_gui()
 
     def initialize_gui(self):
         """ Configura os componentes iniciais da interface gráfica. """
@@ -29,14 +47,14 @@ class MainGUI:
 
     def add_top_image(self):
         """ Adiciona uma imagem no topo da janela. """
-        self.image = PhotoImage(file='logo.png')  # Caminho para a imagem do logo
-        self.image_label = tk.Label(self.root, image=self.image, bg='#07171c')
+        self.image = PhotoImage(file="logo.png")  # Caminho para a imagem do logo
+        self.image_label = tk.Label(self.root, image=self.image, bg="#07171c")
         self.image_label.pack(pady=1)
 
     def add_buttons_to_menu(self):
         """ Adiciona botões ao menu principal. """
-        self.buttons_frame = tk.Frame(self.root, bg='#07171c')
-        self.buttons_frame.pack(fill='x', padx=20)
+        self.buttons_frame = tk.Frame(self.root, bg="#07171c")
+        self.buttons_frame.pack(fill="x", padx=20)
         self.create_menu_buttons()
 
     def create_menu_buttons(self):
@@ -48,37 +66,45 @@ class MainGUI:
             ("Créditos", self.credits),
             ("Configurações", self.open_config_window),
             ("Atualizações", self.check_for_updates),
-            ("Sair", self.quit)
+            ("Sair", self.quit),
         ]
 
         for text, command in buttons_info:
-            button = tk.Button(self.buttons_frame, text=text, command=command, bg='white', fg='black')
-            button.pack(fill='x', pady=5)
+            button = tk.Button(
+                self.buttons_frame, text=text, command=command, bg="white", fg="black"
+            )
+            button.pack(fill="x", pady=5)
 
     def open_scraping_config(self):
         """Abre a janela de configuração do scraper."""
         self.config_window = Toplevel(self.root)
         self.config_window.title("Configuração do Scraper")
-        self.config_window.configure(bg='#07171c')
+        self.config_window.configure(bg="#07171c")
         self.config_window.geometry("400x250")
 
         # Iniciar a configuração da Página Inicial e Página Final
-        self.start_page_label = tk.Label(self.config_window, text="Página Inicial:", bg='#07171c', fg='white')
+        self.start_page_label = tk.Label(
+            self.config_window, text="Página Inicial:", bg="#07171c", fg="white"
+        )
         self.start_page_label.pack(pady=5)
         self.start_page_entry = tk.Entry(self.config_window)
         self.start_page_entry.pack()
         self.start_page_entry.insert(0, "1")  # Valor padrão para a página inicial
 
-        self.end_page_label = tk.Label(self.config_window, text="Página Final:", bg='#07171c', fg='white')
+        self.end_page_label = tk.Label(
+            self.config_window, text="Página Final:", bg="#07171c", fg="white"
+        )
         self.end_page_label.pack(pady=5)
         self.end_page_entry = tk.Entry(self.config_window)
         self.end_page_entry.pack()
         self.end_page_entry.insert(0, "1")  # Valor padrão para a página final
 
         # Configuração para o tempo de espera (Sleep Time)
-        self.sleep_label = tk.Label(self.config_window, text="Sleep time (min-max):", bg='#07171c', fg='white')
+        self.sleep_label = tk.Label(
+            self.config_window, text="Sleep time (min-max):", bg="#07171c", fg="white"
+        )
         self.sleep_label.pack(pady=5)
-        self.sleep_frame = tk.Frame(self.config_window, bg='#07171c')
+        self.sleep_frame = tk.Frame(self.config_window, bg="#07171c")
         self.sleep_frame.pack(pady=5)
         self.sleep_min_entry = tk.Entry(self.sleep_frame, width=5)
         self.sleep_min_entry.pack(side=tk.LEFT, padx=5)
@@ -87,12 +113,16 @@ class MainGUI:
         self.sleep_max_entry.pack(side=tk.RIGHT, padx=5)
         self.sleep_max_entry.insert(0, "6")  # Valor padrão máximo
 
-        self.start_scraping_button = tk.Button(self.config_window, text="Iniciar Scraping",
-                                               command=self.toggle_scraping, bg='white', fg='black')
+        self.start_scraping_button = tk.Button(
+            self.config_window,
+            text="Iniciar Scraping",
+            command=self.toggle_scraping,
+            bg="white",
+            fg="black",
+        )
         self.start_scraping_button.pack(pady=10)
 
         self.scraping_in_progress = False
-
 
     def toggle_scraping(self):
         if not self.scraping_in_progress:
@@ -108,8 +138,10 @@ class MainGUI:
 
         # Verificação se o número da página final é menor que o número da página inicial
         if end_page < start_page:
-            messagebox.showerror("Erro de Configuração",
-                                 "A página final deve ser maior ou igual à página inicial.")
+            messagebox.showerror(
+                "Erro de Configuração",
+                "A página final deve ser maior ou igual à página inicial.",
+            )
             return
 
         self.scraper = ScraperController()
@@ -132,7 +164,7 @@ class MainGUI:
         self.start_scraping_button.config(text=text)
 
     def stop_scraping(self):
-        if self.scraping_in_progress and hasattr(self, 'scraper'):
+        if self.scraping_in_progress and hasattr(self, "scraper"):
             self.scraper.stop()  # Chama o método stop
             self.scraping_in_progress = False
             self.start_scraping_button.config(text="Iniciar Scraping")
@@ -149,210 +181,450 @@ class MainGUI:
             self.config_window.destroy()
 
     def stop_scraping(self):
-        if hasattr(self, 'scraper') and self.scraping_in_progress:
+        if hasattr(self, "scraper") and self.scraping_in_progress:
             self.scraper.stop()  # Interrompe o processo de scraping
             self.scraping_in_progress = False
             self.start_scraping_button.config(text="Iniciar Scraping")
 
     def update_progress(self, value):
-        self.progress['value'] = value
+        self.progress["value"] = value
         self.root.update_idletasks()  # Atualiza a interface gráfica
 
     def analyze_data(self):
         """ Abre a janela para análise de dados. """
         self.analysis_window = Toplevel(self.root)
         self.analysis_window.title("Análise de Dados")
-        self.analysis_window.configure(bg='#07171c')
-        self.analysis_window.geometry("700x600")
+        self.analysis_window.configure(bg="#07171c")
+        self.analysis_window.geometry("600x530")
         self.create_csv_input_section()
-        self.fuel_type_button = tk.Button(self.analysis_window, text="Distribuição de Combustível",
-                                          command=self.show_fuel_distribution)
-        self.fuel_type_button.pack()
+        self.create_report_config_section()
 
     def create_csv_input_section(self):
-        """ Cria a seção para entrada do arquivo CSV e botões de análise. """
-        frame = tk.Frame(self.analysis_window, bg='#07171c')
+        """ Cria a seção para entrada do arquivo CSV. """
+        frame = tk.Frame(self.analysis_window, bg="#07171c")
         frame.pack(pady=10)
 
         self.csv_entry_var = tk.StringVar(value="cars.csv")
         csv_entry = tk.Entry(frame, textvariable=self.csv_entry_var, width=50)
         csv_entry.pack(side=tk.LEFT, padx=10)
 
-        browse_button = tk.Button(frame, text="Procurar", command=self.browse_csv, bg='white', fg='black')
+        browse_button = tk.Button(
+            frame, text="Procurar", command=self.browse_csv, bg="white", fg="black"
+        )
         browse_button.pack(side=tk.LEFT, padx=10)
 
-        analyze_frame = tk.Frame(self.analysis_window, bg='black')
-        analyze_frame.pack(pady=5)
-        analyze_button = tk.Button(analyze_frame, text="Carregar e analisar", command=self.start_data_analysis, bg='white', fg='black')
-        analyze_button.pack(side=tk.LEFT, padx=5)
+    """ Cria a seção para configurar o relatório. """
 
-        max_min_button = tk.Button(analyze_frame, text="Máx & Min", command=self.start_max_min_analysis, bg='white', fg='black')
-        max_min_button.pack(side=tk.LEFT, padx=5)
+    def create_report_config_section(self):
+        """ Create the section for configuring the report. """
+        config_frame = tk.Frame(self.analysis_window, bg="#07171c")
+        config_frame.pack(pady=10)
 
-        graph_buttons_frame = tk.Frame(self.analysis_window, bg='#07171c')
-        graph_buttons_frame.pack(pady=10)
+        # Access the value of self.detailed_report_var to check if the checkbox is selected
+        detailed_report = self.detailed_report_var.get()
 
-        brand_graph_button = tk.Button(graph_buttons_frame, text="Distribuição de Marcas",
-                                       command=lambda: self.show_figure('brand_distribution.png'),
-                                       bg='white', fg='black')
-        brand_graph_button.pack(side=tk.LEFT, padx=10)
+        # Check if the CSV file path is defined
+        if self.csv_file:
+            if detailed_report:
+                report_gen = data_analysis.DetailedReportGenerator(self.csv_file)
+            else:
+                report_gen = data_analysis.StandardReportGenerator(self.csv_file)
+        else:
+            messagebox.showerror("Error", "Please select a CSV file first.")
 
-        price_graph_button = tk.Button(graph_buttons_frame, text="Distribuição de Preços",
-                                       command=lambda: self.show_figure('price_distribution.png'),
-                                       bg='white', fg='black')
-        price_graph_button.pack(side=tk.LEFT, padx=10)
+        # Marca
+        brand_frame = tk.Frame(config_frame, bg="#07171c")
+        brand_frame.pack(fill="x", pady=5)
+        detailed_checkbox = tk.Checkbutton(
+            config_frame,
+            text="Relatório Detalhado",
+            variable=self.detailed_report_var,
+            bg="#07171c",
+            fg="white",
+        )
+        self.create_dropdown(
+            brand_frame,
+            "Marca:",
+            self.brand_var,
+            [
+                "Jaguar",
+                "Unique",
+                "Pagani",
+                "Campagna",
+                "Alfa Romeo",
+                "Elfin",
+                "Ferrari",
+                "NIE",
+                "VW",
+                "Suzuki",
+                "Audi",
+                "Opel",
+                "Volvo",
+                "Mitsubishi",
+                "Lobini",
+                "Maserati",
+                "Callaway",
+                "Seat",
+                "Gumpert",
+                "Chevrolet",
+                "Chrysler",
+                "Skoda",
+                "Cadillac",
+                "Corvette",
+                "Noble",
+                "Tata",
+                "Honda",
+                "BMW",
+                "Ford",
+                "Dodge",
+                "Humer",
+                "Holden",
+                "Bristol",
+                "Porsche",
+                "Maybach",
+                "Lotus",
+                "Toyota",
+                "MB Roadcars",
+                "Superformance",
+                "Ascari",
+                "Mini",
+                "Kia",
+                "Aston Martin",
+                "Peugeot",
+                "Saab",
+                "Renault",
+                "LandRover",
+                "Saturn",
+                "Smart",
+                "Perodua",
+                "Radical",
+                "Ariel",
+                "Brooke",
+                "Ssangyong",
+                "Marcos",
+                "Invicta",
+                "Subaru",
+                "Alpina",
+                "Proton",
+                "Isuzu",
+                "Koenigsegg",
+                "Fiat",
+                "Lexus",
+                "Tesla",
+                "SSC",
+                "Hyundai",
+                "Mazda",
+                "Spyker",
+                "Jeep",
+                "Rolls Royce",
+                "TVR",
+                "Morgan",
+                "Citroen",
+                "Mercedes-Benz",
+                "Westfield",
+                "Nissan",
+                "Caerham",
+                "Daihatsu",
+                "Lamborghini",
+                "Shelby",
+                "Vauxhal",
+                "Bentley",
+            ],
+        )
 
-        year_price_button = tk.Button(self.analysis_window, text="Histograma Ano-Preço",
-                                      command=self.show_year_price_histogram)
-        year_price_button.pack()
+        # Combustível
+        fuel_frame = tk.Frame(config_frame, bg="#07171c")
+        fuel_frame.pack(fill="x", pady=5)
+        self.create_dropdown(
+            fuel_frame,
+            "Combustível:",
+            self.fuel_var,
+            [
+                "Gasolina",
+                "Diesel",
+                "Híbrido (Gasolina)",
+                "Híbrido (Diesel)",
+                "Eléctrico",
+                "GPL",
+            ],
+        )
 
-        mileage_price_button = tk.Button(self.analysis_window, text="Histograma Quilometragem-Preço",
-                                         command=self.show_mileage_price_histogram)
-        mileage_price_button.pack()
+        # Mês
+        month_frame = tk.Frame(config_frame, bg="#07171c")
+        month_frame.pack(fill="x", pady=5)
+        self.create_dropdown(
+            month_frame,
+            "Mês:",
+            self.month_var,
+            [
+                "Janeiro",
+                "Fevereiro",
+                "Março",
+                "Abril",
+                "Maio",
+                "Junho",
+                "Julho",
+                "Agosto",
+                "Setembro",
+                "Outubro",
+                "Novembro",
+                "Dezembro",
+            ],
+        )
 
-    def show_fuel_distribution(self):
-        """ Gera o gráfico de distribuição de combustível e o exibe. """
-        csv_file = self.csv_entry_var.get()  # Obtém o caminho do arquivo CSV
-        graph_path = data_analysis.save_fuel_type_distribution_figure(csv_file)  # Gera o gráfico
-        self.show_figure(graph_path)
+        # Ano Mínimo e Máximo
+        year_frame = tk.Frame(config_frame, bg="#07171c")
+        year_frame.pack(fill="x", pady=5)
+        self.create_input_field(year_frame, "Ano Mínimo:", self.min_year_var)
+        self.create_input_field(year_frame, "Ano Máximo:", self.max_year_var)
 
-    def show_year_price_histogram(self):
-        """ Exibe o histograma do ano de registro e preço. """
-        csv_file = self.csv_entry_var.get()
-        histogram_path = data_analysis.save_year_price_histogram(csv_file)
-        self.show_figure(histogram_path)
+        # Preço Mínimo
+        min_price_frame = tk.Frame(config_frame, bg="#07171c")
+        min_price_frame.pack(fill="x", pady=5)
+        self.create_input_field(min_price_frame, "Preço Mínimo:", self.min_price_var)
 
-    def show_mileage_price_histogram(self):
-        """ Exibe o histograma da quilometragem e preço. """
-        csv_file = self.csv_entry_var.get()
-        histogram_path = data_analysis.save_mileage_price_histogram(csv_file)
-        self.show_figure(histogram_path)
+        # Preço Máximo
+        max_price_frame = tk.Frame(config_frame, bg="#07171c")
+        max_price_frame.pack(fill="x", pady=5)
+        self.create_input_field(max_price_frame, "Preço Máximo:", self.max_price_var)
 
-    def show_figure(self, figure_path):
-        """ Exibe a figura especificada em uma nova janela. """
-        window = Toplevel(self.root)
-        window.title("Gráfico")
+        # Quilometragem Mínima
+        min_mileage_frame = tk.Frame(config_frame, bg="#07171c")
+        min_mileage_frame.pack(fill="x", pady=5)
+        self.create_input_field(
+            min_mileage_frame, "Quilometragem Mínima:", self.min_mileage_var
+        )
 
-        # Aqui, você precisará de uma maneira de carregar e exibir a imagem.
-        # Por exemplo, você pode usar PhotoImage se o arquivo estiver no formato PNG.
-        try:
-            image = tk.PhotoImage(file=figure_path)
-            label = tk.Label(window, image=image)
-            label.image = image  # Mantenha uma referência.
-            label.pack()
-        except Exception as e:
-            messagebox.showerror("Erro", f"Não foi possível abrir o gráfico: {e}")
+        # Quilometragem Máxima
+        max_mileage_frame = tk.Frame(config_frame, bg="#07171c")
+        max_mileage_frame.pack(fill="x", pady=5)
+        self.create_input_field(
+            max_mileage_frame, "Quilometragem Máxima:", self.max_mileage_var
+        )
+
+        # Potência Mínima
+        min_power_frame = tk.Frame(config_frame, bg="#07171c")
+        min_power_frame.pack(fill="x", pady=5)
+        self.create_input_field(min_power_frame, "Potência Mínima:", self.min_power_var)
+
+        # Potência Máxima
+        max_power_frame = tk.Frame(config_frame, bg="#07171c")
+        max_power_frame.pack(fill="x", pady=5)
+        self.create_input_field(max_power_frame, "Potência Máxima:", self.max_power_var)
+
+        # Checkbox para relatório detalhado
+        detailed_checkbox = tk.Checkbutton(
+            config_frame,
+            text="Relatório Detalhado",
+            variable=self.detailed_report_var,
+            bg="#07171c",
+            fg="white",
+        )
+        detailed_checkbox.pack(pady=5)
+
+        # Botão para gerar o relatório
+        generate_button = tk.Button(
+            config_frame,
+            text="Gerar Relatório Personalizado",
+            command=self.generate_custom_report,
+            bg="white",
+            fg="black",
+        )
+        generate_button.pack(pady=10)
+
+        if self.detailed_report_var.get():
+            report_gen = data_analysis.DetailedReportGenerator(self.csv_file)
+        else:
+            report_gen = data_analysis.StandardReportGenerator(self.csv_file)
+
+    def create_dropdown(self, frame, label_text, variable, options):
+        label = tk.Label(frame, text=label_text, bg="#07171c", fg="white")
+        label.pack(side=tk.LEFT, padx=5)
+        dropdown = tk.OptionMenu(frame, variable, *options)
+        dropdown.pack(side=tk.LEFT, padx=5)
+
+    def create_input_field(self, frame, label_text, variable):
+        label = tk.Label(frame, text=label_text, bg="#07171c", fg="white")
+        label.pack(side=tk.LEFT, padx=5)
+        entry = tk.Entry(frame, textvariable=variable, width=10)
+        entry.pack(side=tk.LEFT, padx=5)
+
+    def generate_custom_report(self):
+        """ Gera um relatório personalizado com base nas entradas do usuário. """
+        csv_file = self.csv_entry_var.get()  # Obter o caminho do arquivo CSV
+
+        # Verifica se o caminho do arquivo CSV foi fornecido
+        if not csv_file:
+            messagebox.showerror("Erro", "Por favor, selecione um arquivo CSV.")
+            return
+
+        # Coleta os valores dos widgets de entrada
+        brand = self.brand_var.get() if self.brand_var.get() else None
+        fuel = self.fuel_var.get() if self.fuel_var.get() else None
+        month = self.month_var.get() if self.month_var.get() else None
+        min_year = (
+            int(self.min_year_var.get()) if self.min_year_var.get().isdigit() else None
+        )
+        max_year = (
+            int(self.max_year_var.get()) if self.max_year_var.get().isdigit() else None
+        )
+        min_price = (
+            float(self.min_price_var.get()) if self.min_price_var.get() else None
+        )
+        max_price = (
+            float(self.max_price_var.get()) if self.max_price_var.get() else None
+        )
+        min_mileage = (
+            float(self.min_mileage_var.get()) if self.min_mileage_var.get() else None
+        )
+        max_mileage = (
+            float(self.max_mileage_var.get()) if self.max_mileage_var.get() else None
+        )
+        min_power = (
+            float(self.min_power_var.get()) if self.min_power_var.get() else None
+        )
+        max_power = (
+            float(self.max_power_var.get()) if self.max_power_var.get() else None
+        )
+        detailed_report = self.detailed_report_var.get()
+
+        # Escolhe o gerador de relatório baseado no tipo selecionado
+        if detailed_report:
+            report_gen = data_analysis.DetailedReportGenerator(csv_file)
+        else:
+            report_gen = data_analysis.StandardReportGenerator(csv_file)
+
+        # Gera o relatório com os filtros aplicados
+        report_path = report_gen.generate_report(
+            brand=brand,
+            min_year=min_year,
+            max_year=max_year,
+            fuel=fuel,
+            month=month,
+            min_price=min_price,
+            max_price=max_price,
+            min_mileage=min_mileage,
+            max_mileage=max_mileage,
+            min_power=min_power,
+            max_power=max_power,
+        )
+
+        # Exibe uma mensagem com o caminho do relatório gerado
+        messagebox.showinfo("Relatório Gerado", f"Relatório criado em: {report_path}")
 
     def browse_csv(self):
         """ Método para procurar um arquivo CSV. """
-        filename = filedialog.askopenfilename(initialdir="/", title="Selecione um arquivo CSV",
-                                              filetypes=(("Arquivos CSV", "*.csv"), ("Todos os arquivos", "*.*")))
+        filename = filedialog.askopenfilename(
+            initialdir="/",
+            title="Selecione um arquivo CSV",
+            filetypes=(("Arquivos CSV", "*.csv"), ("Todos os arquivos", "*.*")),
+        )
         if filename:
             self.csv_entry_var.set(filename)
-
-    def start_data_analysis(self):
-        """ Inicia a análise dos dados a partir do arquivo CSV selecionado. """
-        csv_file = self.csv_entry_var.get()
-        try:
-            stats_str = data_analysis.analyze_general_data(csv_file)
-            self.display_analysis_results(stats_str)
-        except Exception as e:
-            messagebox.showerror("Erro ao analisar", str(e))
-
-    def display_analysis_results(self, stats_str):
-        """ Exibe os resultados da análise. """
-        results_window = Toplevel(self.root)
-        results_window.title("Resultados da Análise")
-        results_window.geometry("330x150")
-        stats_text_widget = tk.Text(results_window, height=20, width=80)
-        stats_text_widget.pack(pady=10)
-        stats_text_widget.insert(tk.END, stats_str)
-        stats_text_widget.config(state='disabled')
-
-    def start_max_min_analysis(self):
-        """ Inicia a análise de máximos e mínimos a partir do arquivo CSV selecionado. """
-        csv_file = self.csv_entry_var.get()
-        try:
-            max_min_str = data_analysis.analyze_max_min(csv_file)
-            self.display_max_min_results(max_min_str)
-        except Exception as e:
-            messagebox.showerror("Erro ao analisar", str(e))
-
-    def display_max_min_results(self, max_min_str):
-        """ Exibe os resultados da análise de máximos e mínimos. """
-        results_window = Toplevel(self.root)
-        results_window.title("Resultados da Análise de Máximos e Mínimos")
-        results_window.geometry("430x280")
-        results_window.configure(bg='black')
-
-        max_min_text_widget = tk.Text(results_window, height=20, width=80)
-        max_min_text_widget.pack(pady=10)
-        max_min_text_widget.insert(tk.END, max_min_str)
-        max_min_text_widget.config(state='disabled')
+            self.csv_file = filename
 
     def open_instructions(self):
         """ Abre o arquivo instructions.txt localmente no navegador padrão. """
-        readme_path = os.path.join(os.path.dirname(__file__), 'instructions.txt')
+        readme_path = os.path.join(os.path.dirname(__file__), "instructions.txt")
         if os.path.exists(readme_path):
-            webbrowser.open('file://' + os.path.realpath(readme_path))
+            webbrowser.open("file://" + os.path.realpath(readme_path))
         else:
-            messagebox.showerror("Erro", "O arquivo instructions.txt não foi encontrado.")
+            messagebox.showerror(
+                "Erro", "O arquivo instructions.txt não foi encontrado."
+            )
 
     def open_config_window(self):
         """Abre a janela de configurações."""
         self.config_window = Toplevel(self.root)
         self.config_window.title("Configurações")
-        self.config_window.configure(bg='#07171c')
-        self.config_window.geometry("430x400")
+        self.config_window.configure(bg="#07171c")
+        self.config_window.geometry("450x450")
 
         self.create_config_elements()
 
     def create_config_elements(self):
         """Cria elementos na janela de configuração para atualizar os seletores CSS e User-Agent."""
-        self.config_frame = tk.Frame(self.config_window, bg='#07171c')
+        self.config_frame = tk.Frame(self.config_window, bg="#07171c")
         self.config_frame.pack(pady=10)
 
         # Carrega as configurações atuais ou define os valores padrão
         config = self.load_current_config()
 
         # Campo para User-Agent
-        self.user_agent_label = tk.Label(self.config_frame, text="User-Agent:", bg='#07171c', fg='white')
+        self.user_agent_label = tk.Label(
+            self.config_frame, text="User-Agent:", bg="#07171c", fg="white"
+        )
         self.user_agent_label.pack(pady=5)
         self.user_agent_entry = tk.Entry(self.config_frame)
         self.user_agent_entry.insert(0, config.get("User-Agent", "Mozilla/5.0"))
         self.user_agent_entry.pack()
 
         # Campo para Cars Selector
-        self.cars_selector_label = tk.Label(self.config_frame, text="Cars Selector:", bg='#07171c', fg='white')
+        self.cars_selector_label = tk.Label(
+            self.config_frame, text="Cars Selector:", bg="#07171c", fg="white"
+        )
         self.cars_selector_label.pack(pady=5)
         self.cars_selector_entry = tk.Entry(self.config_frame)
-        self.cars_selector_entry.insert(0, config.get("CarsSelector", "h1.ev7e6t89.ooa-1xvnx1e.er34gjf0"))
+        self.cars_selector_entry.insert(
+            0, config.get("CarsSelector", "h1.e1ajxysh9.ooa-1ed90th.er34gjf0")
+        )
         self.cars_selector_entry.pack()
 
+        # Campo para Price Selector
+        self.price_selector_label = tk.Label(
+            self.config_frame, text="Price Selector:", bg="#07171c", fg="white"
+        )
+        self.price_selector_label.pack(pady=5)
+        self.price_selector_entry = tk.Entry(self.config_frame)
+        self.price_selector_entry.insert(
+            0, config.get("PriceSelector", "h3.offer-price__number.eqdspoq4.ooa-o7wv9s.er34gjf0")
+        )
+        self.price_selector_entry.pack()
+
         # Campo para Others Selector
-        self.others_selector_label = tk.Label(self.config_frame, text="Others Selector:", bg='#07171c', fg='white')
+        self.others_selector_label = tk.Label(
+            self.config_frame, text="Others Selector:", bg="#07171c", fg="white"
+        )
         self.others_selector_label.pack(pady=5)
         self.others_selector_entry = tk.Entry(self.config_frame)
-        self.others_selector_entry.insert(0, config.get("OthersSelector", "p.e1aiyq9b1.ooa-1i4y99d.er34gjf0"))
+        self.others_selector_entry.insert(
+            0, config.get("OthersSelector", "p.ezl3qpx3.ooa-1i4y99d.er34gjf0")
+        )
         self.others_selector_entry.pack()
 
         # Campo para Brand Selector
-        self.brand_selector_label = tk.Label(self.config_frame, text="Brand Selector:", bg='#07171c', fg='white')
+        self.brand_selector_label = tk.Label(
+            self.config_frame, text="Brand Selector:", bg="#07171c", fg="white"
+        )
         self.brand_selector_label.pack(pady=5)
         self.brand_selector_entry = tk.Entry(self.config_frame)
-        self.brand_selector_entry.insert(0, config.get("BrandSelector", "h3.offer-title.big-text.e1aiyq9b2.ooa-ebtemw.er34gjf0"))
+        self.brand_selector_entry.insert(
+            0,
+            config.get(
+                "BrandSelector", "h3.offer-title.big-text.ezl3qpx2.ooa-ebtemw.er34gjf0"
+            ),
+        )
         self.brand_selector_entry.pack()
 
         # Campo para URL Base
-        self.base_url_label = tk.Label(self.config_frame, text="URL Base:", bg='#07171c', fg='white')
+        self.base_url_label = tk.Label(
+            self.config_frame, text="URL Base:", bg="#07171c", fg="white"
+        )
         self.base_url_label.pack(pady=5)
         self.base_url_entry = tk.Entry(self.config_frame)
-        self.base_url_entry.insert(0, config.get("BaseURL", "https://www.standvirtual.com/carros?page="))
+        self.base_url_entry.insert(
+            0, config.get("BaseURL", "https://www.standvirtual.com/carros?page=")
+        )
         self.base_url_entry.pack()
 
         # Botão para salvar as configurações
-        self.save_config_button = tk.Button(self.config_frame, text="Salvar Configurações", command=self.save_config,
-                                            bg='white', fg='black')
+        self.save_config_button = tk.Button(
+            self.config_frame,
+            text="Salvar Configurações",
+            command=self.save_config,
+            bg="white",
+            fg="black",
+        )
         self.save_config_button.pack(pady=10)
 
     def load_current_config(self):
@@ -372,25 +644,32 @@ class MainGUI:
         with open("config.txt", "w") as config_file:
             config_file.write(f"User-Agent:{self.user_agent_entry.get()}\n")
             config_file.write(f"CarsSelector:{self.cars_selector_entry.get()}\n")
+            config_file.write(f"PriceSelector:{self.price_selector_entry.get()}\n")
             config_file.write(f"OthersSelector:{self.others_selector_entry.get()}\n")
             config_file.write(f"BrandSelector:{self.brand_selector_entry.get()}\n")
             config_file.write(f"BaseURL:{self.base_url_entry.get()}\n")
         messagebox.showinfo("Configurações", "Configurações salvas com sucesso!")
 
     def check_for_updates(self):
-        current_version = "2.0.0"  # Versão atual do programa
-        version_url = "https://raw.githubusercontent.com/pereira-andre/Scarpy/main/version.txt"
+        current_version = "3.0.0"  # Versão atual do programa
+        version_url = (
+            "https://raw.githubusercontent.com/pereira-andre/Scarpy/main/version.txt"
+        )
 
         try:
             response = requests.get(version_url)
             latest_version = response.text.strip()
 
             if latest_version != current_version:
-                messagebox.showinfo("Atualização Disponível",
-                                    f"Uma nova versão ({latest_version}) está disponível.\n"
-                                    "Por favor, visite o repositório do GitHub para atualizar.")
+                messagebox.showinfo(
+                    "Atualização Disponível",
+                    f"Uma nova versão ({latest_version}) está disponível.\n"
+                    "Por favor, visite o repositório do GitHub para atualizar.",
+                )
             else:
-                messagebox.showinfo("Sem Atualizações", "Você está utilizando a versão mais recente.")
+                messagebox.showinfo(
+                    "Sem Atualizações", "Você está utilizando a versão mais recente."
+                )
         except Exception as e:
             messagebox.showerror("Erro ao Verificar Atualização", str(e))
 
@@ -404,7 +683,7 @@ class MainGUI:
             "Número de aluno: 2202880.\n\n"
             "Todos os direitos reservados. Este software foi criado para fins educacionais e não pode ser "
             "reproduzido, distribuído ou utilizado para outros fins sem o consentimento explícito do autor."
-            "\n\nhttps://github.com/pereira-andre/Scarpy"
+            "\n\nhttps://github.com/pereira-andre/Scarpy\nDez 2023"
         )
         messagebox.showinfo("Créditos", credits_text)
 
@@ -417,4 +696,3 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = MainGUI(root)
     root.mainloop()
-

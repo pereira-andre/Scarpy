@@ -12,9 +12,10 @@ class DataParser:
 
     def __init__(self):
         # Defina os seletores padrão antes de tentar carregar do arquivo de configuração
-        self.cars_selector = "h1.ev7e6t89.ooa-1xvnx1e.er34gjf0"
-        self.others_selector = "p.e1aiyq9b1.ooa-1i4y99d.er34gjf0"
-        self.brand_selector = "h3.offer-title.big-text.e1aiyq9b2.ooa-ebtemw.er34gjf0"
+        self.cars_selector = "h1.e1ajxysh9.ooa-1ed90th.er34gjf0"
+        self.others_selector = "p.ezl3qpx3.ooa-1i4y99d.er34gjf0"
+        self.brand_selector = "h3.offer-title.big-text.ezl3qpx2.ooa-ebtemw.er34gjf0"
+        self.price_selector = "h3.offer-price__number.eqdspoq4.ooa-o7wv9s.er34gjf0"
 
         # Tente carregar os seletores personalizados do arquivo de configuração
         self.load_selectors()
@@ -32,6 +33,8 @@ class DataParser:
                         self.others_selector = line.split(":", 1)[1].strip()
                     elif line.startswith("BrandSelector:"):
                         self.brand_selector = line.split(":", 1)[1].strip()
+                    elif line.startswith("PriceSelector:"):
+                        self.price_selector = line.split(":", 1)[1].strip()
         except FileNotFoundError:
             print("Arquivo de configuração não encontrado. Usando seletores padrão.")
 
@@ -39,9 +42,11 @@ class DataParser:
         """
         Define os seletores padrão para o caso de o arquivo de configuração não ser encontrado.
         """
-        self.cars_selector = "h1.ev7e6t89.ooa-1xvnx1e.er34gjf0"
-        self.others_selector = "p.e1aiyq9b1.ooa-1i4y99d.er34gjf0"
-        self.brand_selector = "h3.offer-title.big-text.e1aiyq9b2.ooa-ebtemw.er34gjf0"
+        self.cars_selector = "h1.e1ajxysh9.ooa-1ed90th.er34gjf0"
+        self.others_selector = "p.ezl3qpx3.ooa-1i4y99d.er34gjf0"
+        self.brand_selector = "h3.offer-title.big-text.ezl3qpx2.ooa-ebtemw.er34gjf0"
+        self.price_selector = "h3.offer-price__number.eqdspoq4.ooa-o7wv9s.er34gjf0"
+        self.load_selectors()
 
     def parse_search_page(self, html):
         """
@@ -66,7 +71,7 @@ class DataParser:
         """
         others = self.extract_text(html, self.others_selector)
         fuel, month, year, mileage, power = self.parse_others(others)
-        price_str = self.extract_text(html, "h3.offer-price__number.esicnpr5.ooa-17vk29r.er34gjf0")
+        price_str = self.extract_text(html, self.price_selector)
         price = self.parse_price(price_str)
 
         return {

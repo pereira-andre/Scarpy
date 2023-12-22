@@ -1,6 +1,5 @@
 # car.py
 
-
 class Car:
     """
     Classe Car representa um automóvel com várias características.
