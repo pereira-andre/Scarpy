@@ -1,17 +1,23 @@
-#html_fetcher.py
+# html_fetcher.py
 
 import httpx
 from selectolax.parser import HTMLParser
 
+
 class HTMLFetcher:
     """
     Classe responsável por procurar o HTML de páginas web.
+    Esta classe fornece a funcionalidade de obter o HTML de uma URL especificada.
     """
 
-    @staticmethod
-    def get_html(url):
+    def get_html(self, url):
         """
         Obtém o HTML de uma página web a partir da URL fornecida.
+
+        Esta função tenta ler o User-Agent do arquivo de configurações 'config.txt'.
+        Se não conseguir encontrar o arquivo ou a configuração específica, utiliza um valor padrão.
+        Em seguida, faz uma requisição HTTP para a URL fornecida e retorna um objeto HTMLParser
+        se a requisição for bem-sucedida, ou False em caso de falha na requisição.
 
         Args:
             url (str): A URL da página.
@@ -19,7 +25,7 @@ class HTMLFetcher:
         Returns:
             HTMLParser: Objeto HTMLParser que contém o HTML da página, ou False se a requisição falhar.
         """
-        user_agent = "Mozilla/5.0"  # Valor padrão
+        user_agent = "Mozilla/5.0"  # Valor padrão do User-Agent
 
         # Tente ler o User-Agent do arquivo de configurações
         try:
