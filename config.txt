@@ -1,6 +1,0 @@
-User-Agent:Mozilla/5.0
-CarsSelector:h1.e1ajxysh9.ooa-1ed90th.er34gjf0
-PriceSelector:h3.offer-price__number.eqdspoq4.ooa-o7wv9s.er34gjf0
-OthersSelector:p.ezl3qpx3.ooa-1i4y99d.er34gjf0
-BrandSelector:h3.offer-title.big-text.ezl3qpx2.ooa-ebtemw.er34gjf0
-BaseURL:https://www.standvirtual.com/carros?page=
