@@ -1,6 +1,6 @@
 # Scarpy
 
-
+![SCARPY Logo](https://github.com/pereira-andre/Scarpy/blob/main/config/assets/logo.png)
 
 # SCARPY - Automotive Data Collection & Analysis Application
 
