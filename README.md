@@ -1,60 +1,57 @@
 # Scarpy
 
 
-![Logo SCARPY](https://github.com/pereira-andre/Scarpy/blob/main/logo.png)
 
+# SCARPY - Automotive Data Collection & Analysis Application
 
-## SCARPY - Automotive Data Collection & Analysis App
+SCARPY is an innovative application designed for collecting and analyzing automotive advertisement data from the Stand Virtual website. With a data-driven approach, SCARPY provides valuable insights and assists users in identifying the best vehicle deals.
 
-SCARPY is an application designed for collecting and analyzing automotive advertisement data from the Stand Virtual website.
+## Features
 
-### Features
+- **Data Collection**: Gathers information from various pages of Stand Virtual, offering a comprehensive view of the automotive market.
+- **Storage Formats**: Collected data is saved in `.csv` or `.json` formats, facilitating analysis and sharing.
+- **Data Analysis**: Analyzes the collected data to identify market trends and discover unbeatable automotive offers.
 
-- Collects data from a variety of Stand Virtual web pages.
-- Stores data in .csv or .json formats.
-- Analyzes the data to identify market trends and find the best automobile deals.
+## Prerequisites
 
-### Prerequisites
+To use SCARPY, Python must be installed. Additionally, some specific libraries are essential for the application's full functionality.
 
-Before running the program, ensure you have Python installed on your operating system. Some libraries are required for the app to function correctly.
+## Required Libraries
 
-### Required Libraries
+- `tkinter`: User interface.
+- `pandas`: Data manipulation and analysis.
+- `matplotlib`: Data visualization.
+- `requests`: HTTP requests.
+- `selectolax`: HTML parsing.
+- `httpx`: Asynchronous HTTP requests.
+- `threading`: Concurrent execution.
 
-- `tkinter` - For the graphical user interface.
-- `pandas` - For data manipulation and analysis.
-- `matplotlib` - For data visualization.
-- `requests` - For making HTTP requests.
-- `selectolax` - For HTML parsing.
-- `httpx` - For asynchronous HTTP requests.
-- `threading` - For concurrent execution.
+## Installation
 
-### Installation
-
-To install the necessary libraries, execute the following command in your terminal:
+Install the necessary libraries with the command:
 
 ```bash
 pip install pandas matplotlib requests selectolax httpx
 ```
 
-### Configuration
+## Configuration
 
-The app features a configuration window that allows you to easily adjust the following options:
+The application provides a configuration interface to adjust options such as:
 
-- **Browser User-Agent**: To properly configure the User-Agent used in HTTP requests.
-- **CSS Selectors**: To adapt the app to changes on the target website.
-- **Base URL**: To define the base URL of the site from where the data is collected.
+- **Browser User-Agent**: Configure the User-Agent for HTTP requests, simulating your default browser. Go to Google, search for "my user agent," and copy and paste the result into SCARPY's settings for optimized browsing.
+- **CSS Selectors**: Adapt the application to potential changes on the data source site.
+- **Base URL**: Define the base URL of the site from where the data is collected.
 
-To access these configurations, run the app and click on the "Settings" button in the main menu.
+## Execution
 
-### Execution
-
-To run SCARPY, navigate to the app folder in your terminal and execute the command:
+To run SCARPY, navigate to the application folder in the terminal and type:
 
 ```bash
 python main.py
 ```
 
-### License
+Configure the page range and pauses for data collection in the graphical interface.
 
-This project is licensed under the Apache 2.0 License - see the LICENSE file for more details.
+## License
 
+This project is licensed under the Apache 2.0 License. See the LICENSE file for more details.
