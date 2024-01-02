@@ -1,11 +1,14 @@
+# scraping/data_parser.py
+
 import os
+import re
 from urllib.parse import urljoin
 
 
 class DataParser:
     """
-    Classe DataParser responsável por analisar HTML e extrair informações específicas,
-    tais como detalhes do automóvel a partir de páginas de busca e páginas individuais de itens.
+    Classe DataParser é responsável por analisar HTML e extrair informações específicas,
+    tais como os detalhes do automóvel a partir de páginas de busca e páginas individuais de itens.
     """
 
     def __init__(self):
@@ -39,7 +42,7 @@ class DataParser:
 
     def set_default_selectors(self):
         """
-        Define os seletores padrão para o caso de o arquivo de configuração não ser encontrado.
+        Define os seletores padrão para o caso do arquivo de configuração não ser encontrado.
         """
         self.cars_selector = "h1.e1ajxysh9.ooa-1ed90th.er34gjf0"
         self.others_selector = "p.ezl3qpx3.ooa-1i4y99d.er34gjf0"
@@ -97,11 +100,23 @@ class DataParser:
         if len(parts) >= 3:
             year = parts[2]
         if len(parts) >= 4:
-            mileage = parts[3]
+            mileage = self.clean_mileage(parts[3])
         if len(parts) >= 5:
-            power = parts[4]
+            power = self.clean_power(parts[4])
 
         return fuel, month, year, mileage, power
+
+    def clean_mileage(self, mileage_str):
+        """
+        Remove unidades e espaços extras do campo de quilometragem.
+        """
+        return re.sub(r"\D", "", mileage_str)
+
+    def clean_power(self, power_str):
+        """
+        Remove unidades e espaços extras do campo de potência.
+        """
+        return re.sub(r"\D", "", power_str)
 
     def parse_price(self, price_str):
         """

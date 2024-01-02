@@ -1,11 +1,12 @@
 # scraping/scraper_controller.py
 
-import os
-import time
-import random
 from .html_fetcher import HTMLFetcher
 from .data_parser import DataParser
 from .data_exporter import DataExporter
+
+import os
+import time
+import random
 
 
 class ScraperController:
@@ -99,4 +100,4 @@ class ScraperController:
         self.interrupted = True
         self.data_exporter.remove_duplicates()
         self.data_exporter.convert_csv_to_json()
-        print("Scraping interrompido - dados salvos.")
+        print("Scraping interrompido - dados guardados.")

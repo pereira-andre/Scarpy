@@ -10,7 +10,7 @@ from .car import Car
 class DataExporter:
     """
     Classe responsável por exportar dados de automóveis para arquivos CSV e JSON.
-    Esta classe fornece funcionalidades para salvar dados de automóveis em formatos
+    Esta classe fornece funcionalidades para guardar dados de automóveis em formatos
     de arquivo convenientes para análise e armazenamento de dados.
     """
 
@@ -44,7 +44,7 @@ class DataExporter:
             self.create_csv()
 
     def create_csv(self):
-        """ Cria um novo arquivo CSV com cabeçalhos apropriados. """
+        """ Cria um novo arquivo CSV com os cabeçalhos apropriados. """
         with self.csv_filename.open("w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=self.fieldnames)
             writer.writeheader()
@@ -61,14 +61,14 @@ class DataExporter:
         elif isinstance(data, Car):
             self._append_car_to_csv(data)
         else:
-            raise ValueError("Tipo de dado não suportado para exportação.")
+            raise ValueError("Tipo de dados não suportado para exportação.")
 
     def _append_dict_to_csv(self, car_data):
         """
         Adiciona um dicionário de dados de um automóvel ao arquivo CSV.
 
         Args:
-            car_data (dict): Dicionário contendo dados do automóvel.
+            car_data (dict): Dicionário que contem os dados do automóvel.
         """
         with self.csv_filename.open("a", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=self.fieldnames)
@@ -79,7 +79,7 @@ class DataExporter:
         Adiciona dados de uma instância Car ao arquivo CSV.
 
         Args:
-            car (Car): Objeto Car contendo dados do automóvel.
+            car (Car): Objeto Car que contem os dados do automóvel.
         """
         car_data = {
             "brand": car.brand,
@@ -96,7 +96,6 @@ class DataExporter:
     def remove_duplicates(self):
         """
         Remove linhas duplicadas e linhas com dados insuficientes do arquivo CSV.
-        Utiliza um conjunto para rastrear linhas únicas.
         """
         unique_data = set()
         rows = []
@@ -119,7 +118,7 @@ class DataExporter:
 
     def convert_csv_to_json(self):
         """
-        Converte os dados do arquivo CSV em um arquivo JSON.
+        Converte os dados do arquivo CSV num arquivo JSON.
         Útil para aplicações que requerem manipulação de dados em formato JSON.
         """
         with self.csv_filename.open("r", encoding="utf-8") as csv_file:

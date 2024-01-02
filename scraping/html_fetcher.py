@@ -11,7 +11,7 @@ class HTMLFetcher:
     """
 
     def __init__(self):
-        # Define o caminho para o arquivo de configuração com base na estrutura de diretórios
+        # Define o caminho para o arquivo de configuração
         config_path = os.path.join(
             os.path.dirname(os.path.dirname(__file__)), "config", "config.txt"
         )
