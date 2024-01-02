@@ -12,7 +12,7 @@ import webbrowser
 
 
 class MainGUI:
-    """ Classe principal da interface gráfica do usuário para o aplicativo SCARPY. """
+    """ Classe principal da interface gráfica do usuário para o aplicação SCARPY. """
 
     def __init__(self, root):
         """ Inicializa a janela principal. """
@@ -49,10 +49,8 @@ class MainGUI:
         self.add_buttons_to_menu()
 
     def add_top_image(self):
-        """ Adiciona uma imagem no topo da janela. """
-        self.image = PhotoImage(
-            file="config/assets/logo.png"
-        )  # Caminho para a imagem do logo
+        """ Adiciona logo no topo da janela. """
+        self.image = PhotoImage(file="config/assets/logo.png")
         self.image_label = tk.Label(self.root, image=self.image, bg="#07171c")
         self.image_label.pack(pady=1)
 
@@ -170,12 +168,12 @@ class MainGUI:
 
     def stop_scraping(self):
         if self.scraping_in_progress and hasattr(self, "scraper"):
-            self.scraper.stop()  # Chama o método stop
+            self.scraper.stop()
             self.scraping_in_progress = False
             self.start_scraping_button.config(text="Iniciar Scraping")
 
     def run_scraping(self, num_pages, min_sleep, max_sleep):
-        self.scraper = ScraperController()  # Mantenha a instância do ScraperController
+        self.scraper = ScraperController()
         try:
             self.scraper.run(max_pages=num_pages)
             if not self.scraper.interrupted:
@@ -193,7 +191,7 @@ class MainGUI:
 
     def update_progress(self, value):
         self.progress["value"] = value
-        self.root.update_idletasks()  # Atualiza a interface gráfica
+        self.root.update_idletasks()
 
     def analyze_data(self):
         """ Abre a janela para análise de dados. """
@@ -205,11 +203,10 @@ class MainGUI:
         self.create_report_config_section()
 
     def create_csv_input_section(self):
-        """ Cria a seção para entrada do arquivo CSV. """
+        """ Cria a secção para entrada do arquivo CSV. """
         frame = tk.Frame(self.analysis_window, bg="#07171c")
         frame.pack(pady=10)
 
-        # Aqui você define o caminho completo para o arquivo CSV
         csv_file_path = os.path.join(
             os.path.dirname(__file__), "..", "data_collected", "cars.csv"
         )
@@ -223,17 +220,15 @@ class MainGUI:
         )
         browse_button.pack(side=tk.LEFT, padx=10)
 
-    """ Cria a seção para configurar o relatório. """
-
     def create_report_config_section(self):
-        """ Create the section for configuring the report. """
+        """ Cria a secção para configurar o relatório. """
         config_frame = tk.Frame(self.analysis_window, bg="#07171c")
         config_frame.pack(pady=10)
 
-        # Access the value of self.detailed_report_var to check if the checkbox is selected
+        # Acessa o valor de self.detailed_report_var para verificar se a caixa de seleção está marcada
         detailed_report = self.detailed_report_var.get()
 
-        # Check if the CSV file path is defined
+        # Verifica se o caminho do arquivo CSV está definido
         if self.csv_file:
             if detailed_report:
                 report_gen = DetailedReportGenerator(self.csv_file)
@@ -461,14 +456,14 @@ class MainGUI:
 
     def generate_custom_report(self):
         """ Gera um relatório personalizado com base nas entradas do usuário. """
-        csv_file = self.csv_entry_var.get()  # Obter o caminho do arquivo CSV
+        csv_file = self.csv_entry_var.get()
 
         # Verifica se o caminho do arquivo CSV foi fornecido
         if not csv_file:
             messagebox.showerror("Erro", "Por favor, selecione um arquivo CSV.")
             return
 
-        # Coleta os valores dos widgets de entrada
+        # Recolhe os valores dos widgets de entrada
         brand = self.brand_var.get() if self.brand_var.get() else None
         fuel = self.fuel_var.get() if self.fuel_var.get() else None
         month = self.month_var.get() if self.month_var.get() else None
@@ -534,10 +529,9 @@ class MainGUI:
             self.csv_file = filename
 
     def open_instructions(self):
-        """ Abre o arquivo instructions.txt localmente no navegador padrão. """
-        print("Caminho completo:", os.path.realpath(__file__))
+        """ Abre o arquivo readme.txt localmente no navegador padrão. """
         readme_path = os.path.join(
-            os.path.dirname(__file__), "..", "docs", "instructions.txt"
+            os.path.dirname(__file__), "..", "docs", "readme.txt"
         )
         # Verificar se o arquivo existe
         if os.path.exists(readme_path):
@@ -545,9 +539,7 @@ class MainGUI:
             webbrowser.open("file://" + os.path.abspath(readme_path))
         else:
             # Exibir mensagem de erro se o arquivo não for encontrado
-            messagebox.showerror(
-                "Erro", "O arquivo instructions.txt não foi encontrado."
-            )
+            messagebox.showerror("Erro", "O arquivo readme.txt não foi encontrado.")
 
     def open_config_window(self):
         """Abre a janela de configurações."""
@@ -636,10 +628,10 @@ class MainGUI:
         )
         self.base_url_entry.pack()
 
-        # Botão para salvar as configurações
+        # Botão para guardar as configurações
         self.save_config_button = tk.Button(
             self.config_frame,
-            text="Salvar Configurações",
+            text="Guardar Configurações",
             command=self.save_config,
             bg="white",
             fg="black",
@@ -649,11 +641,9 @@ class MainGUI:
     def load_current_config(self):
         """Carrega as configurações atuais do arquivo config.txt."""
         config = {}
-        # Caminho relativo ao diretório do script
         config_path = os.path.join(
             os.path.dirname(__file__), "..", "config", "config.txt"
         )
-        print("Caminho do config:", config_path)
 
         try:
             with open(config_path, "r") as config_file:
@@ -661,7 +651,7 @@ class MainGUI:
                     key, value = line.split(":", 1)
                     config[key.strip()] = value.strip()
         except FileNotFoundError:
-            # O arquivo config.txt não existe, usar valores padrão
+            # Se o arquivo config.txt não existe, usar valores padrão
             pass
         except Exception as e:
             messagebox.showerror("Erro ao Carregar Configurações", str(e))
@@ -669,8 +659,7 @@ class MainGUI:
         return config
 
     def save_config(self):
-        """Salva as configurações alteradas no arquivo config.txt."""
-        # Caminho relativo ao diretório do script
+        """Guarda as configurações alteradas no arquivo config.txt."""
         config_path = os.path.join(
             os.path.dirname(__file__), "..", "config", "config.txt"
         )
@@ -685,9 +674,9 @@ class MainGUI:
                 )
                 config_file.write(f"BrandSelector:{self.brand_selector_entry.get()}\n")
                 config_file.write(f"BaseURL:{self.base_url_entry.get()}\n")
-            messagebox.showinfo("Configurações", "Configurações salvas com sucesso!")
+            messagebox.showinfo("Configurações", "Configurações guardadas com sucesso!")
         except Exception as e:
-            messagebox.showerror("Erro ao Salvar Configurações", str(e))
+            messagebox.showerror("Erro ao Guardar Configurações", str(e))
 
     def check_for_updates(self):
         current_version = "5.0.0"  # Versão atual do programa
@@ -708,12 +697,12 @@ class MainGUI:
             elif latest_version > current_version:
                 messagebox.showinfo(
                     "Atualização Disponível",
-                    f"Uma nova versão ({latest_version}) está disponível.\n"
-                    "Por favor, visite o repositório do GitHub para atualizar.",
+                    f"Está disponível uma nova versão ({latest_version}).\n"
+                    "Por favor, visite o repositório do GitHub para atualizar.\n\nhttps://github.com/pereira-andre/Scarpy",
                 )
             else:
                 messagebox.showinfo(
-                    "Sem Atualizações", "Você está utilizando a versão mais recente."
+                    "Sem Atualizações", "Está a utilizar a versão mais recente."
                 )
         except Exception as e:
             messagebox.showerror("Erro ao Verificar Atualização", str(e))
