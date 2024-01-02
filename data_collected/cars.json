@@ -112820,33 +112820,313 @@
         "url": "https://www.standvirtual.com/carros/anuncio/porsche-cayenne-turbo-ID8OSN9i.html"
     },
     {
-        "brand": "MINI Cooper D",
-        "price": "15990.0",
-        "fuel": "Diesel",
-        "month": "Agosto",
-        "year": "2017",
-        "mileage": "123 800 km",
-        "power": "116 cv",
-        "url": "https://www.standvirtual.com/carros/anuncio/mini-cooper-d-ID8PAvW3.html"
-    },
-    {
-        "brand": "SEAT Ibiza 1.0 MPI Style",
-        "price": "19300.0",
+        "brand": "Audi TT Coupé 2.0 TFSI quattro S-line S tronic",
+        "price": "32900.0",
         "fuel": "Gasolina",
-        "month": "Agosto",
-        "year": "2022",
-        "mileage": "10 949 km",
-        "power": "80 cv",
-        "url": "https://www.standvirtual.com/carros/anuncio/seat-ibiza-1-0-mpi-style-ID8PqfMZ.html"
+        "month": "Setembro",
+        "year": "2016",
+        "mileage": "83000",
+        "power": "230",
+        "url": "https://www.standvirtual.com/carros/anuncio/audi-tt-coup-2-0-tfsi-quattro-s-line-s-tronic-ID8PxsuE.html"
     },
     {
-        "brand": "Land Rover Defender",
-        "price": "45000.0",
+        "brand": "VW Golf 2.0 TSI GTI Clubsport DSG",
+        "price": "50000.0",
+        "fuel": "Gasolina",
+        "month": "Maio",
+        "year": "2022",
+        "mileage": "15000",
+        "power": "300",
+        "url": "https://www.standvirtual.com/carros/anuncio/vw-golf-2-0-tsi-gti-clubsport-dsg-ID8PzZHE.html"
+    },
+    {
+        "brand": "SEAT Leon ST",
+        "price": "13990.0",
+        "fuel": "Gasolina",
+        "month": "Junho",
+        "year": "2017",
+        "mileage": "130000",
+        "power": "115",
+        "url": "https://www.standvirtual.com/carros/anuncio/seat-leon-st-ID8PoItW.html"
+    },
+    {
+        "brand": "Nissan Qashqai",
+        "price": "18990.0",
         "fuel": "Diesel",
         "month": "Junho",
+        "year": "2015",
+        "mileage": "113000",
+        "power": "130",
+        "url": "https://www.standvirtual.com/carros/anuncio/nissan-qashqai-ID8Pw93s.html"
+    },
+    {
+        "brand": "Opel Astra Sports Tourer",
+        "price": "11900.0",
+        "fuel": "Diesel",
+        "month": "Fevereiro",
+        "year": "2017",
+        "mileage": "186793",
+        "power": "110",
+        "url": "https://www.standvirtual.com/carros/anuncio/opel-astra-sports-tourer-ID8Pz6NL.html"
+    },
+    {
+        "brand": "SEAT Leon ST 1.6 TDI Style S/S",
+        "price": "18900.0",
+        "fuel": "Diesel",
+        "month": "Dezembro",
+        "year": "2020",
+        "mileage": "110809",
+        "power": "115",
+        "url": "https://www.standvirtual.com/carros/anuncio/seat-leon-st-1-6-tdi-style-s-s-ID8Pz6NK.html"
+    },
+    {
+        "brand": "Citroën C4 Cactus 1.6 BlueHDi Feel J17",
+        "price": "15900.0",
+        "fuel": "Diesel",
+        "month": "Março",
+        "year": "2017",
+        "mileage": "103696",
+        "power": "100",
+        "url": "https://www.standvirtual.com/carros/anuncio/citron-c4-cactus-1-6-bluehdi-feel-j17-ID8PwfdE.html"
+    },
+    {
+        "brand": "VW Fox 1.2 T.Liso Pack",
+        "price": "4300.0",
+        "fuel": "Gasolina",
+        "month": "Setembro",
+        "year": "2006",
+        "mileage": "162100",
+        "power": "55",
+        "url": "https://www.standvirtual.com/carros/anuncio/vw-fox-1-2-t-liso-pack-ID8PzCQI.html"
+    },
+    {
+        "brand": "BMW X3 20 d xDrive Pack M Auto",
+        "price": "25900.0",
+        "fuel": "Diesel",
+        "month": "Maio",
+        "year": "2015",
+        "mileage": "191800",
+        "power": "190",
+        "url": "https://www.standvirtual.com/carros/anuncio/bmw-x3-20-d-xdrive-pack-m-auto-ID8PzZLx.html"
+    },
+    {
+        "brand": "MINI Countryman Cooper SE ALL4 Auto",
+        "price": "33900.0",
+        "fuel": "Híbrido (Gasolina)",
+        "month": "Maio",
+        "year": "2020",
+        "mileage": "39000",
+        "power": "224",
+        "url": "https://www.standvirtual.com/carros/anuncio/mini-countryman-cooper-se-all4-auto-ID8Pw3v7.html"
+    },
+    {
+        "brand": "Volvo V40 Cross Country 2.0 D2 Geartronic",
+        "price": "19900.0",
+        "fuel": "Diesel",
+        "month": "Novembro",
+        "year": "2018",
+        "mileage": "159000",
+        "power": "120",
+        "url": "https://www.standvirtual.com/carros/anuncio/volvo-v40-cross-country-2-0-d2-geartronic-ID8Pu8Os.html"
+    },
+    {
+        "brand": "Renault Scénic 1.3 TCe Bose Edition EDC",
+        "price": "21450.0",
+        "fuel": "Gasolina",
+        "month": "Junho",
+        "year": "2019",
+        "mileage": "45000",
+        "power": "160",
+        "url": "https://www.standvirtual.com/carros/anuncio/renault-scnic-1-3-tce-bose-edition-edc-ID8PAKcP.html"
+    },
+    {
+        "brand": "Fiat 500X 1.3 MJ Cross Plus S&S",
+        "price": "14800.0",
+        "fuel": "Diesel",
+        "month": "Julho",
+        "year": "2017",
+        "mileage": "108664",
+        "power": "95",
+        "url": "https://www.standvirtual.com/carros/anuncio/fiat-500x-1-3-mj-cross-plus-s-s-ID8PAKcJ.html"
+    },
+    {
+        "brand": "Nissan Qashqai 1.6 dCi Tekna Premium",
+        "price": "20900.0",
+        "fuel": "Diesel",
+        "month": "Junho",
+        "year": "2020",
+        "mileage": "137500",
+        "power": "130",
+        "url": "https://www.standvirtual.com/carros/anuncio/nissan-qashqai-1-6-dci-tekna-premium-ID8PAJcq.html"
+    },
+    {
+        "brand": "Renault Clio Sport Tourer 1.5 dCi Limited",
+        "price": "13890.0",
+        "fuel": "Diesel",
+        "month": "Outubro",
+        "year": "2018",
+        "mileage": "139200",
+        "power": "90",
+        "url": "https://www.standvirtual.com/carros/anuncio/renault-clio-sport-tourer-1-5-dci-limited-ID8PAIT2.html"
+    },
+    {
+        "brand": "Fiat Fullback 2.4 4WD CL Working",
+        "price": "27490.0",
+        "fuel": "Diesel",
+        "month": "Julho",
+        "year": "2017",
+        "mileage": "94180",
+        "power": "154",
+        "url": "https://www.standvirtual.com/carros/anuncio/fiat-fullback-2-4-4wd-cl-working-ID8PAISY.html"
+    },
+    {
+        "brand": "Citroën DS3 1.6 HDi Airdream Sport Chic",
+        "price": "10490.0",
+        "fuel": "Diesel",
+        "month": "Outubro",
+        "year": "2010",
+        "mileage": "149800",
+        "power": "112",
+        "url": "https://www.standvirtual.com/carros/anuncio/citron-ds3-1-6-hdi-airdream-sport-chic-ID8PAISX.html"
+    },
+    {
+        "brand": "VW Golf Cabriolet 1.6 TDi BlueMotion",
+        "price": "14900.0",
+        "fuel": "Diesel",
+        "month": "Junho",
+        "year": "2012",
+        "mileage": "160000",
+        "power": "105",
+        "url": "https://www.standvirtual.com/carros/anuncio/vw-golf-cabriolet-1-6-tdi-bluemotion-ID8PAIOy.html"
+    },
+    {
+        "brand": "Renault Scénic 1.6 dCi Bose Edtion SS",
+        "price": "12990.0",
+        "fuel": "Diesel",
+        "month": "Outubro",
+        "year": "2015",
+        "mileage": "197800",
+        "power": "130",
+        "url": "https://www.standvirtual.com/carros/anuncio/renault-scnic-1-6-dci-bose-edtion-ss-ID8PAIOv.html"
+    },
+    {
+        "brand": "BMW 118 d",
+        "price": "13990.0",
+        "fuel": "Diesel",
+        "month": "Setembro",
+        "year": "2010",
+        "mileage": "180000",
+        "power": "143",
+        "url": "https://www.standvirtual.com/carros/anuncio/bmw-118-d-ID8PAIOw.html"
+    },
+    {
+        "brand": "Alfa Romeo 156 Sportwagon 1.9 JTD Impression",
+        "price": "5490.0",
+        "fuel": "Diesel",
+        "month": "Abril",
         "year": "2005",
-        "mileage": "127 000 km",
-        "power": "122 cv",
-        "url": "https://www.standvirtual.com/carros/anuncio/land-rover-defender-ID8Pi7aG.html"
+        "mileage": "268400",
+        "power": "115",
+        "url": "https://www.standvirtual.com/carros/anuncio/alfa-romeo-156-sportwagon-1-9-jtd-impression-ID8PAqG5.html"
+    },
+    {
+        "brand": "Renault Kadjar 1.5 dCi Intens C/PM+Pneu",
+        "price": "17950.0",
+        "fuel": "Diesel",
+        "month": "Novembro",
+        "year": "2019",
+        "mileage": "144000",
+        "power": "115",
+        "url": "https://www.standvirtual.com/carros/anuncio/renault-kadjar-1-5-dci-intens-c-pm-pneu-ID8PAGvL.html"
+    },
+    {
+        "brand": "Kia Rio 1.0 T-GDI Wave",
+        "price": "18400.0",
+        "fuel": "Gasolina",
+        "month": "Abril",
+        "year": "2022",
+        "mileage": "16236",
+        "power": "100",
+        "url": "https://www.standvirtual.com/carros/anuncio/kia-rio-1-0-t-gdi-wave-ID8Pun57.html"
+    },
+    {
+        "brand": "Smart ForTwo Coupé",
+        "price": "12500.0",
+        "fuel": "Gasolina",
+        "month": "Janeiro",
+        "year": "2018",
+        "mileage": "91435",
+        "power": "71",
+        "url": "https://www.standvirtual.com/carros/anuncio/smart-fortwo-coup-ID8Pv2tm.html"
+    },
+    {
+        "brand": "SEAT Arona 1.0 TSI FR",
+        "price": "21999.0",
+        "fuel": "Gasolina",
+        "month": "Maio",
+        "year": "2022",
+        "mileage": "24099",
+        "power": "110",
+        "url": "https://www.standvirtual.com/carros/anuncio/seat-arona-1-0-tsi-fr-ID8PxSvi.html"
+    },
+    {
+        "brand": "SEAT Arona 1.0 TSI Style",
+        "price": "17799.0",
+        "fuel": "Gasolina",
+        "month": "Dezembro",
+        "year": "2021",
+        "mileage": "59043",
+        "power": "95",
+        "url": "https://www.standvirtual.com/carros/anuncio/seat-arona-1-0-tsi-style-ID8PxWZl.html"
+    },
+    {
+        "brand": "SEAT Ateca 2.0 TDI FR",
+        "price": "28999.0",
+        "fuel": "Diesel",
+        "month": "Setembro",
+        "year": "2021",
+        "mileage": "64790",
+        "power": "115",
+        "url": "https://www.standvirtual.com/carros/anuncio/seat-ateca-2-0-tdi-fr-ID8PxSsj.html"
+    },
+    {
+        "brand": "Renault Mégane 1.5 dCi Dynamique S",
+        "price": "8400.0",
+        "fuel": "Diesel",
+        "month": "Agosto",
+        "year": "2010",
+        "mileage": "181682",
+        "power": "110",
+        "url": "https://www.standvirtual.com/carros/anuncio/renault-mgane-1-5-dci-dynamique-s-ID8PzK5u.html"
+    },
+    {
+        "brand": "SEAT Leon ST",
+        "price": "16400.0",
+        "fuel": "Diesel",
+        "month": "Novembro",
+        "year": "2018",
+        "mileage": "152525",
+        "power": "115",
+        "url": "https://www.standvirtual.com/carros/anuncio/seat-leon-st-ID8PxHOv.html"
+    },
+    {
+        "brand": "BMW i3",
+        "price": "27900.0",
+        "fuel": "Eléctrico",
+        "month": "Abril",
+        "year": "2021",
+        "mileage": "41000",
+        "power": "170",
+        "url": "https://www.standvirtual.com/carros/anuncio/bmw-i3-ID8PxN2m.html"
+    },
+    {
+        "brand": "Land Rover Range Rover Evoque 2.0 TD4 HSE",
+        "price": "19500.0",
+        "fuel": "Diesel",
+        "month": "Janeiro",
+        "year": "2012",
+        "mileage": "172205",
+        "power": "150",
+        "url": "https://www.standvirtual.com/carros/anuncio/land-rover-range-rover-evoque-2-0-td4-hse-ID8PA6iX.html"
     }
 ]
