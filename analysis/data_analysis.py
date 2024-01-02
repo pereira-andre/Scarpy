@@ -192,8 +192,6 @@ class DetailedReportGenerator(ReportGeneratorBase):
         return summary
 
 
-import os
-
 # Funções Auxiliares
 def generate_html_header(title):
     # Constrói o caminho absoluto para o logo
