@@ -32,19 +32,18 @@ class DataAnalysisBase(ABC):
             raise ValueError("Os dados devem ser um DataFrame")
 
     def add_data(self, data, replace=False, csv_path=None):
-        # Carrega dados de um arquivo CSV, se fornecido, e os adiciona aos dados existentes
+        # Carrega dados de um arquivo CSV, se fornecido, e adiciona os dados existentes
         if csv_path:
             try:
                 new_data = pd.read_csv(csv_path)
             except FileNotFoundError:
-                raise ValueError("Caminho de arquivo inválido.")
+                raise ValueError("Caminho do arquivo inválido.")
         elif isinstance(data, pd.DataFrame):
             new_data = data
         else:
             raise TypeError(
                 "data deve ser um DataFrame ou None se csv_path for fornecido."
             )
-
         if replace:
             self.__data = new_data
         else:
@@ -70,13 +69,13 @@ class DataAnalysisBase(ABC):
         return filtered_data
 
     def generate_report(self, **kwargs):
-        # Método abstrato para geração de relatório
+        # Método abstrato para gerar o relatório
         raise NotImplementedError(
             "Método abstrato deve ser implementado nas subclasses."
         )
 
     def generate_summary(self):
-        # Método abstrato para geração de resumo
+        # Método abstrato para gerar o resumo
         raise NotImplementedError(
             "Método abstrato deve ser implementado nas subclasses."
         )
@@ -84,7 +83,7 @@ class DataAnalysisBase(ABC):
 
 class ReportGeneratorBase(DataAnalysisBase):
     """
-    Classe intermediária para geradores de relatórios. Herda de DataAnalysisBase.
+    Classe intermédia para gerar relatórios. Herda de DataAnalysisBase.
     """
 
     def __init__(self, csv_file, report_type):
@@ -97,7 +96,7 @@ class ReportGeneratorBase(DataAnalysisBase):
         return f"Report Type: {self.report_type}"
 
     def generate_report(self, **kwargs):
-        # Método abstrato para geração de relatório
+        # Método abstrato para gerar o relatório
         raise NotImplementedError(
             "Método abstrato deve ser implementado nas subclasses."
         )
@@ -105,7 +104,7 @@ class ReportGeneratorBase(DataAnalysisBase):
 
 class StandardReportGenerator(ReportGeneratorBase):
     """
-    Classe para geração de relatório padrão.
+    Classe para gerar um relatório padrão.
     """
 
     def __init__(self, csv_file):
@@ -143,13 +142,13 @@ class StandardReportGenerator(ReportGeneratorBase):
     def generate_summary(self):
         # Gera um resumo para o relatório padrão
         summary = "Sumário do Relatório Standard:\n"
-        summary += f"Total de registros: {len(self.get_data())}\n"
+        summary += f"Total de registos: {len(self.get_data())}\n"
         return summary
 
 
 class DetailedReportGenerator(ReportGeneratorBase):
     """
-    Classe para geração de relatório detalhado.
+    Classe para gerar um relatório detalhado.
     """
 
     def __init__(self, csv_file):
@@ -193,9 +192,16 @@ class DetailedReportGenerator(ReportGeneratorBase):
         return summary
 
 
+import os
+
 # Funções Auxiliares
-def generate_html_header(title, image_path="logo.png"):
-    # Função para gerar cabeçalho HTML com estilos CSS
+def generate_html_header(title):
+    # Constrói o caminho absoluto para o logo
+    logo_path = os.path.join(
+        os.path.dirname(os.path.dirname(__file__)), "config", "assets", "logo.png"
+    )
+
+    # Estilos CSS
     css_styles = (
         "<style>"
         "header { display: flex; justify-content: space-between; align-items: center; }"
@@ -204,12 +210,14 @@ def generate_html_header(title, image_path="logo.png"):
         ".header-right { text-align: right; }"
         "</style>"
     )
+
+    # Cabeçalho HTML
     header_html = (
         f"<header>"
         f"<div></div>"  # Espaço vazio para alinhamento
         f"<h1>{title}</h1>"
         f"<div class='header-right'>"
-        f"<img src='{image_path}' class='logo'/>"
+        f"<img src='file://{logo_path}' class='logo'/>"  # Referência ao logo
         f"<p>{datetime.now().strftime('%d/%m/%Y %H:%M')}</p>"
         f"</div>"
         f"</header>"
