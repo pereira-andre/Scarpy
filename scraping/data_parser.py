@@ -44,7 +44,7 @@ class DataParser:
         """
         Define os seletores padrão para o caso do arquivo de configuração não ser encontrado.
         """
-        self.cars_selector = "h1.e1ajxysh9.ooa-1ed90th.er34gjf0"
+        self.cars_selector = "h1.e1oqyyyi9.ooa-1ed90th.er34gjf0"
         self.others_selector = "p.ezl3qpx3.ooa-1i4y99d.er34gjf0"
         self.brand_selector = "h3.offer-title.big-text.ezl3qpx2.ooa-ebtemw.er34gjf0"
         self.price_selector = "h3.offer-price__number.eqdspoq4.ooa-o7wv9s.er34gjf0"
