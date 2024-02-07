@@ -16,6 +16,7 @@ Para utilizar o SCARPY, é necessário ter instalado o Python. Adicionalmente, a
 
 - `tkinter`: Interface gráfica do utilizador.
 - `pandas`: Manipulação e análise de dados.
+- `seaborn`: Visualização de dados estatística baseada no matplotlib.
 - `matplotlib`: Visualização de dados.
 - `requests`: Realização de solicitações HTTP.
 - `selectolax`: Análise de HTML.
@@ -27,7 +28,7 @@ Para utilizar o SCARPY, é necessário ter instalado o Python. Adicionalmente, a
 Instale as bibliotecas necessárias com o comando:
 
 ```bash
-pip install pandas matplotlib requests selectolax httpx
+pip install pandas matplotlib seaborn requests selectolax httpx
 ```
 
 ## Configuração
