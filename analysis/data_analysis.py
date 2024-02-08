@@ -132,6 +132,56 @@ class ReportGeneratorBase(DataAnalysisBase):
         }
         return data.rename(columns=colunas_em_portugues, inplace=False)
 
+    def generate_visual_reports(self, filtered_data):
+        sns.set(style="whitegrid")
+        plots_dir = os.path.join(os.path.dirname(__file__), "..", "reports", "plots")
+        os.makedirs(plots_dir, exist_ok=True)
+
+        # Gráfico 1: Distribuição de Preços por Tipo de Combustível
+        plt.figure(figsize=(10, 6))
+        ax = sns.boxplot(x='Combustível', y='Preço', data=filtered_data, palette='Set2')
+        ax.set_title('Distribuição de Preços por Tipo de Combustível')
+        plt.savefig(os.path.join(plots_dir, 'preco_por_combustivel.png'))
+        plt.close()
+
+        # Gráfico 2: Quilometragem em Função do Ano de Fabricação
+        plt.figure(figsize=(10, 6))
+        ax = sns.scatterplot(x='Ano', y='Quilometragem', data=filtered_data, hue='Combustível', palette='coolwarm',
+                             s=100)
+        ax.set_title('Quilometragem em Função do Ano de Fabricação')
+        ax.legend(title='Tipo de Combustível')
+        plt.savefig(os.path.join(plots_dir, 'quilometragem_por_ano.png'))
+        plt.close()
+
+        # Gráfico 3: Distribuição de Veículos por Tipo de Combustível
+        plt.figure(figsize=(10, 6))
+        ax = sns.countplot(x='Combustível', data=filtered_data, palette='viridis')
+        ax.set_title('Distribuição de Veículos por Tipo de Combustível')
+        ax.set_ylabel('Contagem')  # Altera a etiqueta do eixo y para 'Contagem'
+        ax.set_xticklabels(ax.get_xticklabels(), rotation=0)  # Ajusta para horizontal
+        plt.savefig(os.path.join(plots_dir, 'distribuicao_por_combustivel.png'))
+        plt.close()
+
+        # Gráfico 4: Distribuição da Potência dos Veículos
+        plt.figure(figsize=(10, 6))
+        ax = sns.histplot(filtered_data['Potência'], kde=True, color='magenta', binwidth=20)
+        ax.set_title('Distribuição da Potência dos Veículos')
+        ax.set_xlabel('Potência (cv)')
+        ax.set_ylabel('Contagem')  # Altera a etiqueta do eixo y para 'Contagem'
+        plt.savefig(os.path.join(plots_dir, 'distribuicao_potencia.png'))
+        plt.close()
+
+        # Gráfico 5: Distribuição de Veículos por ano
+        plt.figure(figsize=(10, 6))
+        ax = sns.countplot(x='Ano', data=filtered_data, palette='viridis')
+        ax.set_title('Contagem de Carros por Ano')
+        ax.set_ylabel('Contagem')
+        plt.xticks(rotation=45)
+        plt.savefig(os.path.join(plots_dir, 'contagem_por_ano.png'))
+        plt.close()
+
+        print(f"Gráficos salvos em: {plots_dir}")
+
 
 class StandardReportGenerator(ReportGeneratorBase):
     """
@@ -159,6 +209,16 @@ class StandardReportGenerator(ReportGeneratorBase):
         # Após a seção de filtros aplicados em ambos os geradores de relatório:
         html_content += "<h2>Dados dos Veículos Filtrados</h2>"
         html_content += filtered_data.head(10).to_html(classes='dataframe', index=False, border=0, justify='left')
+
+        # Chamada para gerar os gráficos
+        self.generate_visual_reports(filtered_data)
+
+        # Inclusão dos gráficos
+        html_content += "<h2>Gráficos Analíticos</h2>"
+        graphs = ["preco_por_combustivel.png", "quilometragem_por_ano.png", "distribuicao_por_combustivel.png",
+                  "distribuicao_potencia.png", "contagem_por_ano.png"]
+        for graph in graphs:
+            html_content += f"<img src='../reports/plots/{graph}' style='width:100%; max-width:600px; height:auto; display:block; margin:20px auto;'>"
 
         # Salva o relatório HTML
         report_file_path = os.path.join(os.path.dirname(__file__), "..", "reports", "standard_report.html")
@@ -216,7 +276,7 @@ class DetailedReportGenerator(ReportGeneratorBase):
         # Inclusão dos gráficos
         html_content += "<h2>Gráficos Analíticos</h2>"
         graphs = ["preco_por_combustivel.png", "quilometragem_por_ano.png", "distribuicao_por_combustivel.png",
-                  "distribuicao_potencia.png"]
+                  "distribuicao_potencia.png", "contagem_por_ano.png"]
         for graph in graphs:
             html_content += f"<img src='../reports/plots/{graph}' style='width:100%; max-width:600px; height:auto; display:block; margin:20px auto;'>"
 
@@ -253,39 +313,8 @@ class DetailedReportGenerator(ReportGeneratorBase):
         plots_dir = os.path.join(os.path.dirname(__file__), "..", "reports", "plots")
         os.makedirs(plots_dir, exist_ok=True)  # Cria o diretório se não existir
 
-        # Gráfico 1: Distribuição de Preços por Tipo de Combustível
-        plt.figure(figsize=(10, 6))
-        ax = sns.boxplot(x='Combustível', y='Preço', data=filtered_data, palette='Set2')
-        ax.set_title('Distribuição de Preços por Tipo de Combustível')
-        plt.savefig(os.path.join(plots_dir, 'preco_por_combustivel.png'))
-        plt.close()
 
-        # Gráfico 2: Quilometragem em Função do Ano de Fabricação
-        plt.figure(figsize=(10, 6))
-        ax = sns.scatterplot(x='Ano', y='Quilometragem', data=filtered_data, hue='Combustível', palette='coolwarm',
-                             s=100)
-        ax.set_title('Quilometragem em Função do Ano de Fabricação')
-        ax.legend(title='Tipo de Combustível')
-        plt.savefig(os.path.join(plots_dir, 'quilometragem_por_ano.png'))
-        plt.close()
 
-        # Gráfico 3: Distribuição de Veículos por Tipo de Combustível
-        plt.figure(figsize=(10, 6))
-        ax = sns.countplot(x='Combustível', data=filtered_data, palette='viridis')
-        ax.set_title('Distribuição de Veículos por Tipo de Combustível')
-        ax.set_ylabel('Contagem')  # Altera a etiqueta do eixo y para 'Contagem'
-        ax.set_xticklabels(ax.get_xticklabels(), rotation=0)  # Ajusta para horizontal
-        plt.savefig(os.path.join(plots_dir, 'distribuicao_por_combustivel.png'))
-        plt.close()
-
-        # Gráfico 4: Distribuição da Potência dos Veículos
-        plt.figure(figsize=(10, 6))
-        ax = sns.histplot(filtered_data['Potência'], kde=True, color='magenta', binwidth=20)
-        ax.set_title('Distribuição da Potência dos Veículos')
-        ax.set_xlabel('Potência (cv)')
-        ax.set_ylabel('Contagem')  # Altera a etiqueta do eixo y para 'Contagem'
-        plt.savefig(os.path.join(plots_dir, 'distribuicao_potencia.png'))
-        plt.close()
 
         print(f"Gráficos salvos em: {plots_dir}")
 
