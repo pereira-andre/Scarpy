@@ -252,6 +252,7 @@ class MainGUI:
             "Marca:",
             self.brand_var,
             [
+                "",
                 "Jaguar",
                 "Unique",
                 "Pagani",
@@ -345,6 +346,7 @@ class MainGUI:
             "Combustível:",
             self.fuel_var,
             [
+                "",
                 "Gasolina",
                 "Diesel",
                 "Híbrido (Gasolina)",
@@ -362,6 +364,7 @@ class MainGUI:
             "Mês:",
             self.month_var,
             [
+                "",
                 "Janeiro",
                 "Fevereiro",
                 "Março",
