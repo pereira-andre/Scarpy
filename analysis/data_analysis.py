@@ -1,7 +1,8 @@
 # data_analysis/data_analysis.py
 
 import matplotlib
-matplotlib.use('Agg')  # Define o backend antes de importar pyplot
+
+matplotlib.use("Agg")  # Define o backend antes de importar pyplot
 import matplotlib.pyplot as plt
 
 import pandas as pd
@@ -9,6 +10,7 @@ import os
 from abc import ABC
 from datetime import datetime
 import seaborn as sns
+
 
 class DataAnalysisBase(ABC):
     """
@@ -108,7 +110,7 @@ class ReportGeneratorBase(DataAnalysisBase):
     def summarize_data(self, filtered_data):
         summary_stats = filtered_data.describe().round(2)
         stats_html = "<div class='statistics-summary'><h2>Estatísticas Resumidas</h2>"
-        for column in ['Preço', 'Ano', 'Quilometragem', 'Potência']:
+        for column in ["Preço", "Ano", "Quilometragem", "Potência"]:
             stats_html += (
                 f"<p><strong>{column}:</strong><br>"
                 f"Média: {summary_stats.at['mean', column]}, "
@@ -121,14 +123,13 @@ class ReportGeneratorBase(DataAnalysisBase):
 
     def translate_columns(self, data):
         colunas_em_portugues = {
-            'price': 'Preço',
-            'year': 'Ano',
-            'mileage': 'Quilometragem',
-            'power': 'Potência',
-            'brand': 'Marca',
-            'fuel': 'Combustível',
-            'month': 'Mês',
-            # Adicione mais mapeamentos conforme necessário
+            "price": "Preço",
+            "year": "Ano",
+            "mileage": "Quilometragem",
+            "power": "Potência",
+            "brand": "Marca",
+            "fuel": "Combustível",
+            "month": "Mês",
         }
         return data.rename(columns=colunas_em_portugues, inplace=False)
 
@@ -139,48 +140,56 @@ class ReportGeneratorBase(DataAnalysisBase):
 
         # Gráfico 1: Distribuição de Preços por Tipo de Combustível
         plt.figure(figsize=(10, 6))
-        ax = sns.boxplot(x='Combustível', y='Preço', data=filtered_data, palette='Set2')
-        ax.set_title('Distribuição de Preços por Tipo de Combustível')
-        plt.savefig(os.path.join(plots_dir, 'preco_por_combustivel.png'))
+        ax = sns.boxplot(x="Combustível", y="Preço", data=filtered_data, palette="Set2")
+        ax.set_title("Distribuição de Preços por Tipo de Combustível")
+        plt.savefig(os.path.join(plots_dir, "preco_por_combustivel.png"))
         plt.close()
 
         # Gráfico 2: Quilometragem em Função do Ano de Fabricação
         plt.figure(figsize=(10, 6))
-        ax = sns.scatterplot(x='Ano', y='Quilometragem', data=filtered_data, hue='Combustível', palette='coolwarm',
-                             s=100)
-        ax.set_title('Quilometragem em Função do Ano de Fabricação')
-        ax.legend(title='Tipo de Combustível')
-        plt.savefig(os.path.join(plots_dir, 'quilometragem_por_ano.png'))
+        ax = sns.scatterplot(
+            x="Ano",
+            y="Quilometragem",
+            data=filtered_data,
+            hue="Combustível",
+            palette="coolwarm",
+            s=100,
+        )
+        ax.set_title("Quilometragem em Função do Ano de Fabricação")
+        ax.legend(title="Tipo de Combustível")
+        plt.savefig(os.path.join(plots_dir, "quilometragem_por_ano.png"))
         plt.close()
 
         # Gráfico 3: Distribuição de Veículos por Tipo de Combustível
         plt.figure(figsize=(10, 6))
-        ax = sns.countplot(x='Combustível', data=filtered_data, palette='viridis')
-        ax.set_title('Distribuição de Veículos por Tipo de Combustível')
-        ax.set_ylabel('Contagem')  # Altera a etiqueta do eixo y para 'Contagem'
-        ax.set_xticklabels(ax.get_xticklabels(), rotation=0)  # Ajusta para horizontal
-        plt.savefig(os.path.join(plots_dir, 'distribuicao_por_combustivel.png'))
+        ax = sns.countplot(x="Combustível", data=filtered_data, palette="viridis")
+        ax.set_title("Distribuição de Veículos por Tipo de Combustível")
+        ax.set_ylabel("Contagem")
+        ax.set_xticklabels(ax.get_xticklabels(), rotation=0)
+        plt.savefig(os.path.join(plots_dir, "distribuicao_por_combustivel.png"))
         plt.close()
 
         # Gráfico 4: Distribuição da Potência dos Veículos
         plt.figure(figsize=(10, 6))
-        ax = sns.histplot(filtered_data['Potência'], kde=True, color='magenta', binwidth=20)
-        ax.set_title('Distribuição da Potência dos Veículos')
-        ax.set_xlabel('Potência (cv)')
-        ax.set_ylabel('Contagem')  # Altera a etiqueta do eixo y para 'Contagem'
-        plt.savefig(os.path.join(plots_dir, 'distribuicao_potencia.png'))
+        ax = sns.histplot(
+            filtered_data["Potência"], kde=True, color="magenta", binwidth=20
+        )
+        ax.set_title("Distribuição da Potência dos Veículos")
+        ax.set_xlabel("Potência (cv)")
+        ax.set_ylabel("Contagem")
+        plt.savefig(os.path.join(plots_dir, "distribuicao_potencia.png"))
         plt.close()
 
-        # Gráfico 5: Distribuição de Veículos por ano
+        # Gráfico 5: Distribuição de Veículos por Ano
         plt.figure(figsize=(10, 6))
-        ax = sns.countplot(x='Ano', data=filtered_data, palette='viridis')
-        ax.set_title('Contagem de Carros por Ano')
-        ax.set_ylabel('Contagem')
+        ax = sns.countplot(x="Ano", data=filtered_data, palette="viridis")
+        ax.set_title("Contagem de Carros por Ano")
+        ax.set_ylabel("Contagem")
         plt.xticks(rotation=45)
-        plt.savefig(os.path.join(plots_dir, 'contagem_por_ano.png'))
+        plt.savefig(os.path.join(plots_dir, "contagem_por_ano.png"))
         plt.close()
 
-        print(f"Gráficos salvos em: {plots_dir}")
+        print(f"Gráficos guardados em: {plots_dir}")
 
 
 class StandardReportGenerator(ReportGeneratorBase):
@@ -197,32 +206,45 @@ class StandardReportGenerator(ReportGeneratorBase):
 
         # Sumário dos dados filtrados
         html_content += f"<div class='summary'><h2>Sumário do Relatório Standard</h2>"
-        html_content += f"<p>Total de Veículos Filtrados: {len(filtered_data)}</p></div>"
+        html_content += (
+            f"<p>Total de Veículos Filtrados: {len(filtered_data)}</p></div>"
+        )
 
-        # Filtros Aplicados - Agora antes das Estatísticas Resumidas
-        filters_text = ", ".join([f"{key}: {value}" for key, value in self.filters_applied.items() if value])
+        # Filtros Aplicados
+        filters_text = ", ".join(
+            [f"{key}: {value}" for key, value in self.filters_applied.items() if value]
+        )
         html_content += f"<div class='filters-applied'><h2>Filtros Aplicados</h2><p>{filters_text}</p></div>"
 
         # Estatísticas Resumidas
         html_content += self.summarize_data(filtered_data)
 
-        # Após a seção de filtros aplicados em ambos os geradores de relatório:
+        # Geradores de relatório:
         html_content += "<h2>Dados dos Veículos Filtrados</h2>"
-        html_content += filtered_data.head(10).to_html(classes='dataframe', index=False, border=0, justify='left')
+        html_content += filtered_data.head(10).to_html(
+            classes="dataframe", index=False, border=0, justify="left"
+        )
 
         # Chamada para gerar os gráficos
         self.generate_visual_reports(filtered_data)
 
         # Inclusão dos gráficos
         html_content += "<h2>Gráficos Analíticos</h2>"
-        graphs = ["preco_por_combustivel.png", "quilometragem_por_ano.png", "distribuicao_por_combustivel.png",
-                  "distribuicao_potencia.png", "contagem_por_ano.png"]
+        graphs = [
+            "preco_por_combustivel.png",
+            "quilometragem_por_ano.png",
+            "distribuicao_por_combustivel.png",
+            "distribuicao_potencia.png",
+            "contagem_por_ano.png",
+        ]
         for graph in graphs:
             html_content += f"<img src='../reports/plots/{graph}' style='width:100%; max-width:600px; height:auto; display:block; margin:20px auto;'>"
 
         # Salva o relatório HTML
-        report_file_path = os.path.join(os.path.dirname(__file__), "..", "reports", "standard_report.html")
-        with open(report_file_path, "w", encoding='utf-8') as file:
+        report_file_path = os.path.join(
+            os.path.dirname(__file__), "..", "reports", "standard_report.html"
+        )
+        with open(report_file_path, "w", encoding="utf-8") as file:
             file.write(html_content)
         print(f"Relatório salvo em: {report_file_path}")
         return report_file_path
@@ -257,10 +279,14 @@ class DetailedReportGenerator(ReportGeneratorBase):
 
         # Sumário dos dados filtrados
         html_content += f"<div class='summary'><h2>Sumário do Relatório Detalhado</h2>"
-        html_content += f"<p>Total de Veículos Filtrados: {len(filtered_data)}</p></div>"
+        html_content += (
+            f"<p>Total de Veículos Filtrados: {len(filtered_data)}</p></div>"
+        )
 
-        # Filtros Aplicados - Agora antes das Estatísticas Resumidas
-        filters_text = ", ".join([f"{key}: {value}" for key, value in self.filters_applied.items() if value])
+        # Filtros Aplicados
+        filters_text = ", ".join(
+            [f"{key}: {value}" for key, value in self.filters_applied.items() if value]
+        )
         html_content += f"<div class='filters-applied'><h2>Filtros Aplicados</h2><p>{filters_text}</p></div>"
 
         # Estatísticas Resumidas
@@ -268,21 +294,30 @@ class DetailedReportGenerator(ReportGeneratorBase):
 
         # Inclusão da tabela de dados filtrados
         html_content += "<h2>Dados dos Veículos Filtrados</h2>"
-        html_content += filtered_data.to_html(classes='dataframe', index=False, border=0, justify='left')
+        html_content += filtered_data.to_html(
+            classes="dataframe", index=False, border=0, justify="left"
+        )
 
         # Geração dos gráficos
         self.generate_visual_reports(filtered_data)
 
         # Inclusão dos gráficos
         html_content += "<h2>Gráficos Analíticos</h2>"
-        graphs = ["preco_por_combustivel.png", "quilometragem_por_ano.png", "distribuicao_por_combustivel.png",
-                  "distribuicao_potencia.png", "contagem_por_ano.png"]
+        graphs = [
+            "preco_por_combustivel.png",
+            "quilometragem_por_ano.png",
+            "distribuicao_por_combustivel.png",
+            "distribuicao_potencia.png",
+            "contagem_por_ano.png",
+        ]
         for graph in graphs:
             html_content += f"<img src='../reports/plots/{graph}' style='width:100%; max-width:600px; height:auto; display:block; margin:20px auto;'>"
 
         # Salva o relatório HTML
-        report_file_path = os.path.join(os.path.dirname(__file__), "..", "reports", "detailed_report.html")
-        with open(report_file_path, "w", encoding='utf-8') as file:
+        report_file_path = os.path.join(
+            os.path.dirname(__file__), "..", "reports", "detailed_report.html"
+        )
+        with open(report_file_path, "w", encoding="utf-8") as file:
             file.write(html_content)
 
         return report_file_path
@@ -307,20 +342,18 @@ class DetailedReportGenerator(ReportGeneratorBase):
         """
         Gera gráficos visuais para o relatório com base nos dados filtrados.
         """
-        sns.set(style="whitegrid")  # Configuração do estilo do Seaborn
+        sns.set(style="whitegrid")
 
         # Diretório para salvar os gráficos
         plots_dir = os.path.join(os.path.dirname(__file__), "..", "reports", "plots")
-        os.makedirs(plots_dir, exist_ok=True)  # Cria o diretório se não existir
-
-
-
+        os.makedirs(plots_dir, exist_ok=True)
 
         print(f"Gráficos salvos em: {plots_dir}")
 
 
 # Funções Auxiliares
 def generate_html_header(title):
+    current_time = datetime.now().strftime("%H:%M %d/%m/%Y")
     logo_path = os.path.join(
         os.path.dirname(os.path.dirname(__file__)), "config", "assets", "logo.png"
     )
@@ -328,26 +361,26 @@ def generate_html_header(title):
         "<style>"
         "body { font-family: Arial, sans-serif; margin: 0; padding: 0; }"
         "header { background-color: #07171c; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }"
-        "h1 { margin: 0; }"
-        ".logo { height: 50px; }"
+        ".logo { height: 50px; width: auto; }"  # Ajusta o tamanho do logo, mantendo a proporção
+        ".title { flex-grow: 1; text-align: center; }"  # Centraliza o título
+        ".date-time { text-align: right; }"  # Alinha a data e hora à direita
+        ".header-section { display: flex; align-items: center; justify-content: center; }"  # Define o layout flexível para as seções do cabeçalho
         ".summary, .section { margin: 20px; }"
         "h2 { color: #333; }"
         "table { width: 100%; border-collapse: collapse; margin-top: 20px; }"
         "th, td { text-align: left; padding: 8px; border-bottom: 1px solid #ddd; }"
         "th { background-color: #f2f2f2; }"
-        "img { width: 100%; max-width: 600px; height: auto; display: block; margin: 20px auto; }"
-        ".statistics-summary p, .filters-applied { margin: 10px 0; }"
         "</style>"
     )
     header_html = (
         f"<header>"
-        f"<h1>{title}</h1>"
-        f"<div class='header-right'>"
-        f"<img src='file://{logo_path}' class='logo'/>"
-        f"</div>"
+        f"<div class='header-section'><img src='file://{logo_path}' class='logo'/></div>"
+        f"<div class='header-section title'><h1>{title}</h1></div>"
+        f"<div class='header-section date-time'><p>{current_time}</p></div>"
         f"</header>"
     )
     return css_styles + header_html
+
 
 
 def generate_statistics_summary(dataframe):
@@ -364,4 +397,3 @@ def generate_statistics_summary(dataframe):
             f"Desvio padrão: {relevant_stats.at['std', col]:.2f}</p>"
         )
     return html_content
-
