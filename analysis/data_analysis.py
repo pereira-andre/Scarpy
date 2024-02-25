@@ -2,7 +2,7 @@
 
 import matplotlib
 
-matplotlib.use("Agg")  # Define o backend antes de importar pyplot
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 import pandas as pd
@@ -96,9 +96,8 @@ class ReportGeneratorBase(DataAnalysisBase):
         super().__init__(csv_file)
         self.report_type = report_type
         self.filters_applied = None
-        # Gera o nome da pasta no construtor
+        # Cria a pasta do relatório
         self.report_folder_name = self.generate_folder_name()
-        # Cria a pasta do relatório diretamente no construtor e armazena o caminho
         self.report_folder_path = self.create_report_folder()
 
     def generate_folder_name(self):
@@ -109,10 +108,11 @@ class ReportGeneratorBase(DataAnalysisBase):
 
     def create_report_folder(self):
         """Cria a pasta do relatório com o nome gerado e retorna o caminho."""
-        report_folder_path = os.path.join(os.path.dirname(__file__), "..", "reports", self.report_folder_name)
+        report_folder_path = os.path.join(
+            os.path.dirname(__file__), "..", "reports", self.report_folder_name
+        )
         os.makedirs(report_folder_path, exist_ok=True)
         return report_folder_path
-
 
     def __str__(self):
         # Representação em string da instância
@@ -357,6 +357,7 @@ class DetailedReportGenerator(ReportGeneratorBase):
         summary += "Detalhes adicionais: [inserir mais detalhes aqui]"
         return summary
 
+
 # Funções Auxiliares
 def generate_html_header(title):
     current_time = datetime.now().strftime("%H:%M %d/%m/%Y")
@@ -386,7 +387,6 @@ def generate_html_header(title):
         f"</header>"
     )
     return css_styles + header_html
-
 
 
 def generate_statistics_summary(dataframe):
