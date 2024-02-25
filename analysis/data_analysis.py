@@ -101,6 +101,19 @@ class ReportGeneratorBase(DataAnalysisBase):
         # Representação em string da instância
         return f"Report Type: {self.report_type}"
 
+    def generate_folder_name(self):
+        """Gera o nome da pasta com base no tipo de relatório e na data/hora atual."""
+        current_time = datetime.now().strftime("%d-%m-%Y_%H-%M")
+        folder_name = f"{self.report_type}_Report_{current_time}"
+        return folder_name
+
+    def create_report_folder(self):
+        """Cria a pasta do relatório com o nome gerado e retorna o caminho."""
+        folder_name = self.generate_folder_name()
+        report_folder_path = os.path.join(os.path.dirname(__file__), "..", "reports", folder_name)
+        os.makedirs(report_folder_path, exist_ok=True)
+        return report_folder_path
+
     def generate_report(self, **kwargs):
         # Método abstrato para gerar o relatório
         raise NotImplementedError(
@@ -134,15 +147,19 @@ class ReportGeneratorBase(DataAnalysisBase):
         return data.rename(columns=colunas_em_portugues, inplace=False)
 
     def generate_visual_reports(self, filtered_data):
-        sns.set(style="whitegrid")
-        plots_dir = os.path.join(os.path.dirname(__file__), "..", "reports", "plots")
+        report_folder_path = self.create_report_folder()
+        plots_dir = os.path.join(report_folder_path, "plots")
         os.makedirs(plots_dir, exist_ok=True)
+
+        graphs_paths = []
 
         # Gráfico 1: Distribuição de Preços por Tipo de Combustível
         plt.figure(figsize=(10, 6))
         ax = sns.boxplot(x="Combustível", y="Preço", data=filtered_data, palette="Set2")
         ax.set_title("Distribuição de Preços por Tipo de Combustível")
-        plt.savefig(os.path.join(plots_dir, "preco_por_combustivel.png"))
+        graph_file_name = "preco_por_combustivel.png"
+        plt.savefig(os.path.join(plots_dir, graph_file_name))
+        graphs_paths.append(os.path.join("plots", graph_file_name))
         plt.close()
 
         # Gráfico 2: Quilometragem em Função do Ano de Fabricação
@@ -157,7 +174,9 @@ class ReportGeneratorBase(DataAnalysisBase):
         )
         ax.set_title("Quilometragem em Função do Ano de Fabricação")
         ax.legend(title="Tipo de Combustível")
-        plt.savefig(os.path.join(plots_dir, "quilometragem_por_ano.png"))
+        graph_file_name = "quilometragem_por_ano.png"
+        plt.savefig(os.path.join(plots_dir, graph_file_name))
+        graphs_paths.append(os.path.join("plots", graph_file_name))
         plt.close()
 
         # Gráfico 3: Distribuição de Veículos por Tipo de Combustível
@@ -165,19 +184,24 @@ class ReportGeneratorBase(DataAnalysisBase):
         ax = sns.countplot(x="Combustível", data=filtered_data, palette="viridis")
         ax.set_title("Distribuição de Veículos por Tipo de Combustível")
         ax.set_ylabel("Contagem")
-        ax.set_xticklabels(ax.get_xticklabels(), rotation=0)
-        plt.savefig(os.path.join(plots_dir, "distribuicao_por_combustivel.png"))
+        ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
+        graph_file_name = "distribuicao_por_combustivel.png"
+        plt.savefig(os.path.join(plots_dir, graph_file_name))
+        graphs_paths.append(os.path.join("plots", graph_file_name))
         plt.close()
 
         # Gráfico 4: Distribuição da Potência dos Veículos
         plt.figure(figsize=(10, 6))
-        ax = sns.histplot(
-            filtered_data["Potência"], kde=True, color="magenta", binwidth=20
-        )
+        if not filtered_data["Potência"].empty:
+            ax = sns.histplot(
+                filtered_data["Potência"], kde=True, color="magenta", binwidth=20
+            )
         ax.set_title("Distribuição da Potência dos Veículos")
         ax.set_xlabel("Potência (cv)")
         ax.set_ylabel("Contagem")
-        plt.savefig(os.path.join(plots_dir, "distribuicao_potencia.png"))
+        graph_file_name = "distribuicao_potencia.png"
+        plt.savefig(os.path.join(plots_dir, graph_file_name))
+        graphs_paths.append(os.path.join("plots", graph_file_name))
         plt.close()
 
         # Gráfico 5: Distribuição de Veículos por Ano
@@ -186,8 +210,12 @@ class ReportGeneratorBase(DataAnalysisBase):
         ax.set_title("Contagem de Carros por Ano")
         ax.set_ylabel("Contagem")
         plt.xticks(rotation=45)
-        plt.savefig(os.path.join(plots_dir, "contagem_por_ano.png"))
+        graph_file_name = "contagem_por_ano.png"
+        plt.savefig(os.path.join(plots_dir, graph_file_name))
+        graphs_paths.append(os.path.join("plots", graph_file_name))
         plt.close()
+
+        return graphs_paths
 
         print(f"Gráficos guardados em: {plots_dir}")
 
@@ -201,8 +229,11 @@ class StandardReportGenerator(ReportGeneratorBase):
         super().__init__(csv_file, "Standard")
 
     def generate_html_report(self, filtered_data):
+        report_folder_path = self.create_report_folder()
         filtered_data = self.translate_columns(filtered_data)
         html_content = generate_html_header("Relatório de Análise Standard")
+
+        graphs_paths = self.generate_visual_reports(filtered_data)
 
         # Sumário dos dados filtrados
         html_content += f"<div class='summary'><h2>Sumário do Relatório Standard</h2>"
@@ -230,20 +261,11 @@ class StandardReportGenerator(ReportGeneratorBase):
 
         # Inclusão dos gráficos
         html_content += "<h2>Gráficos Analíticos</h2>"
-        graphs = [
-            "preco_por_combustivel.png",
-            "quilometragem_por_ano.png",
-            "distribuicao_por_combustivel.png",
-            "distribuicao_potencia.png",
-            "contagem_por_ano.png",
-        ]
-        for graph in graphs:
-            html_content += f"<img src='../reports/plots/{graph}' style='width:100%; max-width:600px; height:auto; display:block; margin:20px auto;'>"
+        for graph_path in graphs_paths:
+            html_content += f"<img src='{graph_path}' style='width:100%; max-width:600px; height:auto; display:block; margin:20px auto;'>"
 
-        # Salva o relatório HTML
-        report_file_path = os.path.join(
-            os.path.dirname(__file__), "..", "reports", "standard_report.html"
-        )
+        # Salva o relatório HTML em pasta especifica
+        report_file_path = os.path.join(report_folder_path, "report.html")
         with open(report_file_path, "w", encoding="utf-8") as file:
             file.write(html_content)
         print(f"Relatório salvo em: {report_file_path}")
@@ -274,8 +296,11 @@ class DetailedReportGenerator(ReportGeneratorBase):
         super().__init__(csv_file, "Detailed")
 
     def generate_html_report(self, filtered_data):
+        report_folder_path = self.create_report_folder()
         filtered_data = self.translate_columns(filtered_data)
         html_content = generate_html_header("Relatório de Análise Detalhada")
+
+        graphs_paths = self.generate_visual_reports(filtered_data)
 
         # Sumário dos dados filtrados
         html_content += f"<div class='summary'><h2>Sumário do Relatório Detalhado</h2>"
@@ -303,23 +328,14 @@ class DetailedReportGenerator(ReportGeneratorBase):
 
         # Inclusão dos gráficos
         html_content += "<h2>Gráficos Analíticos</h2>"
-        graphs = [
-            "preco_por_combustivel.png",
-            "quilometragem_por_ano.png",
-            "distribuicao_por_combustivel.png",
-            "distribuicao_potencia.png",
-            "contagem_por_ano.png",
-        ]
-        for graph in graphs:
-            html_content += f"<img src='../reports/plots/{graph}' style='width:100%; max-width:600px; height:auto; display:block; margin:20px auto;'>"
+        for graph_path in graphs_paths:
+            html_content += f"<img src='{graph_path}' style='width:100%; max-width:600px; height:auto; display:block; margin:20px auto;'>"
 
-        # Salva o relatório HTML
-        report_file_path = os.path.join(
-            os.path.dirname(__file__), "..", "reports", "detailed_report.html"
-        )
+        # Salva o relatório HTML em pasta especifica
+        report_file_path = os.path.join(report_folder_path, "report.html")
         with open(report_file_path, "w", encoding="utf-8") as file:
             file.write(html_content)
-
+        print(f"Relatório salvo em: {report_file_path}")
         return report_file_path
 
     def generate_report(self, data=None, **kwargs):
