@@ -46,9 +46,9 @@ class HTMLFetcher:
             response.raise_for_status()
             return HTMLParser(response.text)
         except httpx.HTTPStatusError as e:
-            print(f"Erro HTTP ao acessar {url}: {e.response.status_code}")
+            print(f"Erro HTTP ao aceder {url}: {e.response.status_code}")
             return None
         except Exception as e:
-            print(f"Erro ao acessar {url}: {e}")
+            print(f"Erro ao aceder {url}: {e}")
             return None
 
