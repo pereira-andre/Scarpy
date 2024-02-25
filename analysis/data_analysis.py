@@ -338,19 +338,6 @@ class DetailedReportGenerator(ReportGeneratorBase):
         summary += "Detalhes adicionais: [inserir mais detalhes aqui]"
         return summary
 
-    def generate_visual_reports(self, filtered_data):
-        """
-        Gera gráficos visuais para o relatório com base nos dados filtrados.
-        """
-        sns.set(style="whitegrid")
-
-        # Diretório para salvar os gráficos
-        plots_dir = os.path.join(os.path.dirname(__file__), "..", "reports", "plots")
-        os.makedirs(plots_dir, exist_ok=True)
-
-        print(f"Gráficos salvos em: {plots_dir}")
-
-
 # Funções Auxiliares
 def generate_html_header(title):
     current_time = datetime.now().strftime("%H:%M %d/%m/%Y")
