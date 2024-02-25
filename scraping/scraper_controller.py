@@ -61,7 +61,8 @@ class ScraperController:
                 page_url = self.baseurl + str(n)
                 html = self.html_fetcher.get_html(page_url)
                 if not html:
-                    break
+                    print(f"Não foi possível obter o HTML para a página: {page_url}")
+                    continue
 
                 cars_urls = self.data_parser.parse_search_page(html)
                 for url in cars_urls:
@@ -69,6 +70,9 @@ class ScraperController:
                         break
                     print(url)
                     html = self.html_fetcher.get_html(url)
+                    if not html:
+                        continue
+
                     car_data = self.data_parser.parse_item_page(html)
                     if car_data:
                         car_data["url"] = url

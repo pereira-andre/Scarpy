@@ -40,8 +40,15 @@ class HTMLFetcher:
         headers = {"User-Agent": self.user_agent}
         try:
             response = httpx.get(url, headers=headers)
+            if response.status_code == 404:
+                print(f"Página não encontrada (404): {url}")
+                return None
             response.raise_for_status()
             return HTMLParser(response.text)
+        except httpx.HTTPStatusError as e:
+            print(f"Erro HTTP ao acessar {url}: {e.response.status_code}")
+            return None
         except Exception as e:
             print(f"Erro ao acessar {url}: {e}")
-            return False
+            return None
+
