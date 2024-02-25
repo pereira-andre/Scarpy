@@ -96,23 +96,27 @@ class ReportGeneratorBase(DataAnalysisBase):
         super().__init__(csv_file)
         self.report_type = report_type
         self.filters_applied = None
-
-    def __str__(self):
-        # Representação em string da instância
-        return f"Report Type: {self.report_type}"
+        # Gera o nome da pasta no construtor
+        self.report_folder_name = self.generate_folder_name()
+        # Cria a pasta do relatório diretamente no construtor e armazena o caminho
+        self.report_folder_path = self.create_report_folder()
 
     def generate_folder_name(self):
-        """Gera o nome da pasta com base no tipo de relatório e na data/hora atual."""
-        current_time = datetime.now().strftime("%d-%m-%Y_%H-%M")
+        """Gera o nome da pasta uma única vez."""
+        current_time = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
         folder_name = f"{self.report_type}_Report_{current_time}"
         return folder_name
 
     def create_report_folder(self):
         """Cria a pasta do relatório com o nome gerado e retorna o caminho."""
-        folder_name = self.generate_folder_name()
-        report_folder_path = os.path.join(os.path.dirname(__file__), "..", "reports", folder_name)
+        report_folder_path = os.path.join(os.path.dirname(__file__), "..", "reports", self.report_folder_name)
         os.makedirs(report_folder_path, exist_ok=True)
         return report_folder_path
+
+
+    def __str__(self):
+        # Representação em string da instância
+        return f"Report Type: {self.report_type}"
 
     def generate_report(self, **kwargs):
         # Método abstrato para gerar o relatório
@@ -147,8 +151,7 @@ class ReportGeneratorBase(DataAnalysisBase):
         return data.rename(columns=colunas_em_portugues, inplace=False)
 
     def generate_visual_reports(self, filtered_data):
-        report_folder_path = self.create_report_folder()
-        plots_dir = os.path.join(report_folder_path, "plots")
+        plots_dir = os.path.join(self.report_folder_path, "plots")
         os.makedirs(plots_dir, exist_ok=True)
 
         graphs_paths = []
@@ -229,7 +232,7 @@ class StandardReportGenerator(ReportGeneratorBase):
         super().__init__(csv_file, "Standard")
 
     def generate_html_report(self, filtered_data):
-        report_folder_path = self.create_report_folder()
+        report_folder_path = self.report_folder_path
         filtered_data = self.translate_columns(filtered_data)
         html_content = generate_html_header("Relatório de Análise Standard")
 
@@ -296,7 +299,7 @@ class DetailedReportGenerator(ReportGeneratorBase):
         super().__init__(csv_file, "Detailed")
 
     def generate_html_report(self, filtered_data):
-        report_folder_path = self.create_report_folder()
+        report_folder_path = self.report_folder_path
         filtered_data = self.translate_columns(filtered_data)
         html_content = generate_html_header("Relatório de Análise Detalhada")
 
