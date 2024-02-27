@@ -301,11 +301,19 @@ class DetailedReportGenerator(ReportGeneratorBase):
         self.report_folder_path = None
 
     def generate_html_report(self, filtered_data, report_title):
-        report_folder_path = self.create_report_folder()  # Garante que a pasta do relatório é criada
+        report_folder_path = self.create_report_folder()
         filtered_data = self.translate_columns(filtered_data)
+
         html_content = generate_html_header("Relatório de Análise Detalhada")
 
         graphs_paths = self.generate_visual_reports(filtered_data)
+
+        # Cria o visualizador de distribuição de preços
+        price_visualizer = PriceDistributionVisualizer(filtered_data)
+        # Gera o gráfico de distribuição de preços dentro do diretório de plots do relatório
+        price_distribution_graph_path = price_visualizer.generate_price_distribution_chart(
+            report_folder_path + "/plots")
+        graphs_paths.append(price_distribution_graph_path)
 
         # Sumário dos dados filtrados
         html_content += f"<div class='summary'><h2>Sumário do Relatório Detalhado</h2>"
@@ -328,9 +336,6 @@ class DetailedReportGenerator(ReportGeneratorBase):
             classes="dataframe", index=False, border=0, justify="left"
         )
 
-        # Geração dos gráficos
-        self.generate_visual_reports(filtered_data)
-
         # Inclusão dos gráficos
         html_content += "<h2>Gráficos Analíticos</h2>"
         for graph_path in graphs_paths:
@@ -351,6 +356,7 @@ class DetailedReportGenerator(ReportGeneratorBase):
         else:
             filtered_data = data
         return self.generate_html_report(filtered_data, "Relatório de Análise Detalhada")
+
 
     def generate_summary(self):
         # Gera um resumo para o relatório detalhado
@@ -405,3 +411,28 @@ def generate_statistics_summary(dataframe):
             f"Desvio padrão: {relevant_stats.at['std', col]:.2f}</p>"
         )
     return html_content
+
+
+class PriceDistributionVisualizer:
+    def __init__(self, data):
+        self.data = data
+
+    def generate_price_distribution_chart(self, output_dir):
+        plots_dir = output_dir  # Use diretamente o output_dir
+        os.makedirs(plots_dir, exist_ok=True)
+
+        graph_file_name = "price_distribution.png"
+        graph_path = os.path.join(plots_dir, graph_file_name)
+
+        plt.figure(figsize=(10, 6))
+        sns.histplot(self.data['Preço'], kde=True)
+        plt.title('Distribuição de Preços dos Veículos')
+        plt.xlabel('Preço')
+        plt.ylabel('Frequência')
+        plt.savefig(graph_path)
+        plt.close()
+
+        return graph_path
+
+
+
