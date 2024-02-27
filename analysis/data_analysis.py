@@ -96,9 +96,7 @@ class ReportGeneratorBase(DataAnalysisBase):
         super().__init__(csv_file)
         self.report_type = report_type
         self.filters_applied = None
-        # Cria a pasta do relatório
-        self.report_folder_name = self.generate_folder_name()
-        self.report_folder_path = self.create_report_folder()
+
 
     def generate_folder_name(self):
         """Gera o nome da pasta uma única vez."""
@@ -108,11 +106,13 @@ class ReportGeneratorBase(DataAnalysisBase):
 
     def create_report_folder(self):
         """Cria a pasta do relatório com o nome gerado e retorna o caminho."""
-        report_folder_path = os.path.join(
-            os.path.dirname(__file__), "..", "reports", self.report_folder_name
-        )
-        os.makedirs(report_folder_path, exist_ok=True)
-        return report_folder_path
+        if self.report_folder_path is None:
+            self.report_folder_name = self.generate_folder_name()
+            self.report_folder_path = os.path.join(
+                os.path.dirname(__file__), "..", "reports", self.report_folder_name
+            )
+            os.makedirs(self.report_folder_path, exist_ok=True)
+        return self.report_folder_path
 
     def __str__(self):
         # Representação em string da instância
@@ -230,9 +230,10 @@ class StandardReportGenerator(ReportGeneratorBase):
 
     def __init__(self, csv_file):
         super().__init__(csv_file, "Standard")
+        self.report_folder_path = None
 
-    def generate_html_report(self, filtered_data):
-        report_folder_path = self.report_folder_path
+    def generate_html_report(self, filtered_data, report_title):
+        report_folder_path = self.create_report_folder()  # Garante que a pasta do relatório é criada
         filtered_data = self.translate_columns(filtered_data)
         html_content = generate_html_header("Relatório de Análise Standard")
 
@@ -281,7 +282,7 @@ class StandardReportGenerator(ReportGeneratorBase):
             filtered_data = self.filter_data(**kwargs)
         else:
             filtered_data = data
-        return self.generate_html_report(filtered_data)
+        return self.generate_html_report(filtered_data, "Relatório de Análise Standard")
 
     def generate_summary(self):
         # Gera um resumo para o relatório padrão
@@ -297,9 +298,10 @@ class DetailedReportGenerator(ReportGeneratorBase):
 
     def __init__(self, csv_file):
         super().__init__(csv_file, "Detailed")
+        self.report_folder_path = None
 
-    def generate_html_report(self, filtered_data):
-        report_folder_path = self.report_folder_path
+    def generate_html_report(self, filtered_data, report_title):
+        report_folder_path = self.create_report_folder()  # Garante que a pasta do relatório é criada
         filtered_data = self.translate_columns(filtered_data)
         html_content = generate_html_header("Relatório de Análise Detalhada")
 
@@ -348,7 +350,7 @@ class DetailedReportGenerator(ReportGeneratorBase):
             filtered_data = self.filter_data(**kwargs)
         else:
             filtered_data = data
-        return self.generate_html_report(filtered_data)
+        return self.generate_html_report(filtered_data, "Relatório de Análise Detalhada")
 
     def generate_summary(self):
         # Gera um resumo para o relatório detalhado
