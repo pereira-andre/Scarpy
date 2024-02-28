@@ -344,12 +344,12 @@ class MainGUI:
             self.fuel_var,
             [
                 "",
-                "Gasolina",
                 "Diesel",
-                "Híbrido (Gasolina)",
-                "Híbrido (Diesel)",
                 "Eléctrico",
+                "Gasolina",
                 "GPL",
+                "Híbrido (Diesel)",
+                "Híbrido (Gasolina)",
             ],
         )
 

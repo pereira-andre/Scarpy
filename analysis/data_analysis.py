@@ -10,6 +10,10 @@ import os
 from abc import ABC
 from datetime import datetime
 import seaborn as sns
+import warnings
+
+warnings.filterwarnings("ignore", category=FutureWarning)
+warnings.filterwarnings("ignore", category=UserWarning)
 
 
 class DataAnalysisBase(ABC):
@@ -95,7 +99,7 @@ class ReportGeneratorBase(DataAnalysisBase):
     def __init__(self, csv_file, report_type):
         super().__init__(csv_file)
         self.report_type = report_type
-        self.filters_applied = None
+        self.filters_applied = {}
 
 
     def generate_folder_name(self):
@@ -223,7 +227,19 @@ class ReportGeneratorBase(DataAnalysisBase):
         print(f"Gráficos guardados em: {plots_dir}")
 
 
-class StandardReportGenerator(ReportGeneratorBase):
+# Classe com herança múltipla
+class DataVisualizationMixin:
+    def plot_data_summary(self, data):
+        print("Visualização Resumida dos Dados:")
+        print(f"Total de registros: {len(data)}")
+        if not data.empty:
+            print(f"Médias: \n{data.mean(numeric_only=True)}\n")
+        else:
+            print("Os dados estão vazios.")
+
+
+class StandardReportGenerator(ReportGeneratorBase, DataVisualizationMixin):
+
     """
     Classe para gerar um relatório padrão.
     """
@@ -246,9 +262,7 @@ class StandardReportGenerator(ReportGeneratorBase):
         )
 
         # Filtros Aplicados
-        filters_text = ", ".join(
-            [f"{key}: {value}" for key, value in self.filters_applied.items() if value]
-        )
+        filters_text = ", ".join([f"{key}: {value}" for key, value in self.filters_applied.items() if value])
         html_content += f"<div class='filters-applied'><h2>Filtros Aplicados</h2><p>{filters_text}</p></div>"
 
         # Estatísticas Resumidas
@@ -259,6 +273,7 @@ class StandardReportGenerator(ReportGeneratorBase):
         html_content += filtered_data.head(10).to_html(
             classes="dataframe", index=False, border=0, justify="left"
         )
+
 
         # Chamada para gerar os gráficos
         self.generate_visual_reports(filtered_data)
@@ -275,9 +290,11 @@ class StandardReportGenerator(ReportGeneratorBase):
         print(f"Relatório salvo em: {report_file_path}")
         return report_file_path
 
-    def generate_report(self, data=None, **kwargs):
-        # Armazena os filtros aplicados e gera o relatório
+    def generate_report(self, **kwargs):
+        print("\nGerando Relatório Padrão...")
         self.filters_applied = kwargs
+        data = self.filter_data(**kwargs)
+        self.plot_data_summary(data)
         if data is None:
             filtered_data = self.filter_data(**kwargs)
         else:
@@ -291,7 +308,8 @@ class StandardReportGenerator(ReportGeneratorBase):
         return summary
 
 
-class DetailedReportGenerator(ReportGeneratorBase):
+class DetailedReportGenerator(ReportGeneratorBase, DataVisualizationMixin):
+
     """
     Classe para gerar um relatório detalhado.
     """
@@ -412,7 +430,7 @@ def generate_statistics_summary(dataframe):
         )
     return html_content
 
-
+# Nova classe para responder à pergunta 2 c), com biblioteca seaborn
 class PriceDistributionVisualizer:
     def __init__(self, data):
         self.data = data
@@ -433,6 +451,3 @@ class PriceDistributionVisualizer:
         plt.close()
 
         return graph_path
-
-
-

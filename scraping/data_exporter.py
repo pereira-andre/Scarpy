@@ -49,14 +49,6 @@ class DataExporter:
             writer = csv.DictWriter(f, fieldnames=self.fieldnames)
             writer.writeheader()
 
-    def __add__(self, other):
-        """Sobrecarga do operador + para adicionar dados ao CSV."""
-        if isinstance(other, (dict, Car)):
-            self.append_to_csv(other)
-        else:
-            raise ValueError("Tipo de dados não suportado para exportação.")
-        return self
-
     def append_to_csv(self, data):
         """
         Adiciona dados ao arquivo CSV. Aceita tanto dicionários quanto objetos Car.
